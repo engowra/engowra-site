@@ -3641,6 +3641,24 @@ function quizNext(){
   function cfgReady(){ return !!CFG.SUPABASE_URL && !!CFG.SUPABASE_ANON_KEY && CFG.SUPABASE_URL.indexOf('YOUR-')<0 && CFG.SUPABASE_ANON_KEY.indexOf('YOUR_')<0; }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function errText(e){ if(!e) return 'Unknown database error'; return String(e.message||e.details||e.hint||e.code||e); }
+  function firstErr(e){ return errText(e).split('\n')[0].slice(0,240); }
+  /* The ONLY id ever written to profiles.id / attempts.profile_id: the id of the
+     user in the live Supabase auth session (session.user.id). Never a device or
+     local-profile id. Resolves null when nobody is logged in. */
+  function getAuthUserId(){
+    if(!EGDB.client) return Promise.resolve(null);
+    try{
+      return EGDB.client.auth.getSession().then(function(r){
+        var u=r&&r.data&&r.data.session&&r.data.session.user;
+        if(u&&u.id){ EGDB.user=u; return u.id; }
+        return EGDB.client.auth.getUser().then(function(r2){
+          var u2=r2&&r2.data&&r2.data.user;
+          if(u2&&u2.id){ EGDB.user=u2; return u2.id; }
+          return (EGDB.user&&EGDB.user.id)||null;
+        }).catch(function(){ return (EGDB.user&&EGDB.user.id)||null; });
+      }).catch(function(){ return (EGDB.user&&EGDB.user.id)||null; });
+    }catch(e){ return Promise.resolve((EGDB.user&&EGDB.user.id)||null); }
+  }
   function setSaveLines(text){
     EGDB.lastAttemptSave=text;
     try{ var nodes=document.querySelectorAll('[data-save-line]'); for(var i=0;i<nodes.length;i++) nodes[i].textContent=text; }catch(e){}
@@ -3694,7 +3712,9 @@ function quizNext(){
   /* ---------- profile: load from / sync to public.profiles ---------- */
   function loadProfile(){
     if(!EGDB.client||!EGDB.user) return Promise.resolve(null);
-    return EGDB.client.from('profiles').select('id,name,email,role,selected_exam,target_score,is_paid,subscription_plan').eq('id',EGDB.user.id).maybeSingle()
+    return getAuthUserId().then(function(authId){
+      if(!authId) return null;
+      return EGDB.client.from('profiles').select('id,name,email,role,selected_exam,target_score,is_paid,subscription_plan').eq('id',authId).maybeSingle()
       .then(function(res){
         if(res.error){ EGDB.online=false; EGDB.unreachable=true; EGDB.syncNote='Your account profile could not be loaded: '+errText(res.error); renderDbStatus(); return null; }
         EGDB.online=true; EGDB.profile=res.data||null;
@@ -3723,51 +3743,102 @@ function quizNext(){
         renderDbStatus();
         return EGDB.profile;
       }).catch(function(e){ EGDB.online=false; EGDB.unreachable=true; EGDB.syncNote='Your account profile could not be loaded: '+errText(e); renderDbStatus(); return null; });
+    });
   }
   function syncProfile(){
+    // Guests never reach the database: profile save is attempted ONLY with a
+    // live auth session, and the row id is ALWAYS that session user's id.
     if(!EGDB.client||!EGDB.user) return Promise.resolve(false);
-    var meta=(EGDB.user&&EGDB.user.user_metadata)||{};
-    var pending=EGDB.pendingProfile||{};
-    var name=pending.name||(guestProfile&&guestProfile.name)||meta.name||meta.full_name||(EGDB.profile&&EGDB.profile.name)||'';
-    var target=pending.target||(guestProfile&&guestProfile.target)||(EGDB.profile&&EGDB.profile.target_score)||'';
-    if(typeof target==='number'&&isFinite(target)) target='Band '+target;
-    var email=pending.email||EGDB.user.email||(EGDB.profile&&EGDB.profile.email)||null;
-    // A real UPSERT (insert-or-update on the auth user's id): an UPDATE alone
-    // silently touches zero rows when the profile row does not exist yet,
-    // which left public.profiles empty even though login worked.
-    var base={ id:EGDB.user.id, last_seen_at:new Date().toISOString(), selected_exam:'ielts' };
-    if(name) base.name=name;
-    if(email) base.email=email;
-    if(target) base.target_score=target;
-    function attempt(row){
-      return EGDB.client.from('profiles').upsert(row,{onConflict:'id'}).select('id,name,email,target_score,selected_exam');
-    }
-    function finish(res,row){
-      EGDB.online=true; EGDB.unreachable=false;
-      EGDB.profile=(res.data&&res.data[0])||row;
-      EGDB.syncNote='✓ Your profile is saved to your Engowra account.';
-      renderDbStatus();
-      return true;
-    }
-    return attempt(base).then(function(res){
-      if(!res.error) return finish(res,base);
-      var msg=errText(res.error), retry=null, k;
-      if(/target_score|numeric|double precision|real|integer/i.test(msg)&&target){
-        var n=parseFloat(String(target).replace(/[^0-9.]/g,''));
-        if(isFinite(n)){ retry={}; for(k in base) retry[k]=base[k]; retry.target_score=n; }
-      }else if(/selected_exam/i.test(msg)){
-        retry={}; for(k in base) retry[k]=base[k]; retry.selected_exam='IELTS';
+    return getAuthUserId().then(function(authId){
+      if(!authId){
+        EGDB.syncNote='Please log in to save your profile to your account — for now it is saved on this device only.';
+        renderDbStatus();
+        return false;
       }
-      if(retry){
-        return attempt(retry).then(function(res2){
-          if(!res2.error) return finish(res2,retry);
-          EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(errText(res2.error)); return false;
-        });
+      var meta=(EGDB.user&&EGDB.user.user_metadata)||{};
+      var pending=EGDB.pendingProfile||{};
+      // Name/target come ONLY from an explicit source for THIS account: what was
+      // just typed (sign-up / onboarding while logged in -> pendingProfile), the
+      // auth account metadata, or the profile already in the database. The old
+      // device/guest name is deliberately NOT used, so it can never be pasted
+      // onto a logged-in account that has no database profile yet.
+      var name=pending.name||meta.name||meta.full_name||(EGDB.profile&&EGDB.profile.name)||'';
+      var target=pending.target||(EGDB.profile&&EGDB.profile.target_score)||'';
+      if(typeof target==='number'&&isFinite(target)) target='Band '+target;
+      var email=pending.email||EGDB.user.email||(EGDB.profile&&EGDB.profile.email)||null;
+      if(!name&&!target&&!EGDB.profile){
+        // Nothing account-specific to save yet: ask the logged-in user for
+        // name + target (onboarding) instead of inventing a profile row.
+        EGDB.syncNote='Add your name and target band so your account profile can be created.';
+        renderDbStatus();
+        promptAccountProfile();
+        return false;
       }
-      EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(msg); return false;
-    }).catch(function(e){ EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(errText(e)); return false; });
+      // Payload: id = auth user id, name, email, target (target_score column).
+      var base={ id:authId };
+      if(name) base.name=name;
+      if(email) base.email=email;
+      if(target) base.target_score=target;
+      function attempt(row){
+        return EGDB.client.from('profiles').upsert(row,{onConflict:'id'}).select('id,name,email,target_score,selected_exam');
+      }
+      function finish(res,row){
+        EGDB.online=true; EGDB.unreachable=false;
+        EGDB.profile=(res.data&&res.data[0])||row;
+        EGDB.pendingProfile=null;
+        EGDB.syncNote='✓ Your profile is saved to your Engowra account.';
+        // Dashboard now shows the database profile's name/target.
+        try{
+          var nm=EGDB.profile.name||'', tgRaw=EGDB.profile.target_score, tg='';
+          if(typeof tgRaw==='number'&&isFinite(tgRaw)) tg='Band '+tgRaw;
+          else if(tgRaw!=null&&String(tgRaw).trim()!=='') tg=/^[0-9]+(\.[0-9]+)?$/.test(String(tgRaw).trim())?('Band '+String(tgRaw).trim()):String(tgRaw);
+          if(nm) guestProfile.name=nm;
+          if(tg) guestProfile.target=tg;
+          if(nm&&tg){ guestProfile.done=true; try{ localStorage.setItem('engowra_profile',JSON.stringify(guestProfile)); }catch(e){} if(typeof applyGuestProfile==='function') applyGuestProfile(); }
+          var dt=document.getElementById('dashTitle'); if(dt&&nm) dt.textContent='Welcome back, '+nm+'! Your IELTS dashboard';
+          var av=document.getElementById('dashAvatar'); if(av&&nm) av.textContent=nm.trim().charAt(0).toUpperCase()||'E';
+        }catch(e){}
+        renderDbStatus();
+        return true;
+      }
+      return attempt(base).then(function(res){
+        if(!res.error) return finish(res,base);
+        var msg=errText(res.error), retry=null, k;
+        if(/target_score|numeric|double precision|real|integer/i.test(msg)&&target){
+          var n=parseFloat(String(target).replace(/[^0-9.]/g,''));
+          if(isFinite(n)){ retry={}; for(k in base) retry[k]=base[k]; retry.target_score=n; }
+        }
+        if(retry){
+          return attempt(retry).then(function(res2){
+            if(!res2.error) return finish(res2,retry);
+            EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(firstErr(res2.error)); return false;
+          });
+        }
+        EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(firstErr(res.error)); return false;
+      }).catch(function(e){ EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(firstErr(e)); return false; });
+    });
   }
   window.egSyncProfile=syncProfile;
+  /* Logged-in but no database profile yet: name + target must be asked for
+     explicitly (onboarding) so a profile can be created for THIS account. */
+  function promptAccountProfile(){
+    if(!EGDB.user||EGDB._acctPrompted) return;
+    EGDB._acctPrompted=true;
+    setTimeout(function(){
+      try{
+        if(typeof openOnboarding==='function') openOnboarding(true);
+        // Clear any device/guest values: the account profile must come from
+        // what this logged-in user types here, never pasted in automatically.
+        var ni=document.getElementById('obName'); if(ni) ni.value='';
+        try{ obTarget=''; }catch(e){}
+        if(typeof renderObChoices==='function') renderObChoices();
+        if(typeof obShowStep==='function') obShowStep(1);
+        var e2=document.getElementById('obErr2');
+        if(e2) e2.textContent='You are logged in, but your account has no saved profile yet — add your name and target band once so we can create it.';
+      }catch(e){}
+    },900);
+  }
+  window.egPromptAccountProfile=promptAccountProfile;
 
   /* ---------- test catalogue lookup (client test -> database tests row) ---------- */
   function normTitle(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim(); }
@@ -3810,54 +3881,18 @@ function quizNext(){
     return '';
   }
   function resolveDbTest(a){
+    // Catalogue lookup rule: module (skill) + EXACT title match only. No fuzzy
+    // guessing — a wrong test_id in the database would corrupt the history.
     if(!a||!EGDB.tests.length) return null;
     var raw=a.title||clientTestTitle(a.testId);
     var nt=normTitle(raw); if(!nt) return null;
-    var ct=coreTitle(raw);
-    var skill=a.skill||'';
-    var pool=EGDB.tests;
-    if(skill){
-      var bySkill=pool.filter(function(t){ return !t.skill||t.skill===skill; });
-      if(bySkill.length) pool=bySkill;
-    }
-    var i;
-    // 1) exact title, then 2) title containment — inside this module first.
-    for(i=0;i<pool.length;i++){ if(pool[i].norm===nt) return pool[i]; }
-    for(i=0;i<pool.length;i++){ var dn=pool[i].norm; if(dn&&(dn.indexOf(nt)>=0||nt.indexOf(dn)>=0)) return pool[i]; }
-    // 3) core title (module word + "Test N" stripped) exact / containment.
-    if(ct){
-      for(i=0;i<pool.length;i++){ if(pool[i].core&&pool[i].core===ct) return pool[i]; }
-      for(i=0;i<pool.length;i++){ var dc=pool[i].core; if(dc&&(dc.indexOf(ct)>=0||ct.indexOf(dc)>=0)) return pool[i]; }
-    }
-    // 4) same set number inside the same module (e.g. client "Test 4" <-> row "Test 4").
-    var num=null, m=String(raw).match(/(?:test|task|part)\s*(\d+)/i);
-    if(m) num=m[1];
-    if(!num){ var mid=String(a.testId||'').match(/(\d+)/); if(mid) num=mid[1]; }
-    if(num){
-      var numbered=pool.filter(function(t){ var tm=String(t.title).match(/(?:test|task|part)\s*(\d+)/i); return tm&&tm[1]===num; });
-      if(numbered.length===1) return numbered[0];
-      if(numbered.length>1&&ct){
-        var bestN=null,bestS=0;
-        numbered.forEach(function(t){ var s=tokenScore(ct,t.core); if(s>bestS){ bestS=s; bestN=t; } });
-        if(bestN) return bestN;
-        return numbered[0];
-      }
-    }
-    // 5) word-overlap on the core title.
-    if(ct){
-      var best=null,bestScore=0;
-      pool.forEach(function(t){ var s=tokenScore(ct,t.core); if(s>bestScore){ bestScore=s; best=t; } });
-      if(best&&bestScore>=0.6) return best;
+    var skill=String(a.skill||'').toLowerCase();
+    for(var i=0;i<EGDB.tests.length;i++){
+      var t=EGDB.tests[i];
+      if(skill && t.skill && t.skill!==skill) continue;
+      if(t.norm===nt) return t;
     }
     return null;
-  }
-  function tokenScore(a,b){
-    if(!a||!b) return 0;
-    var aw=a.split(' ').filter(Boolean), bw=b.split(' ').filter(Boolean);
-    if(!aw.length||!bw.length) return 0;
-    var set={}; bw.forEach(function(w){ set[w]=1; });
-    var hit=0; aw.forEach(function(w){ if(set[w]) hit++; });
-    return hit/Math.min(aw.length,bw.length);
   }
   window.egResolveDbTest=resolveDbTest;
 
@@ -3869,12 +3904,21 @@ function quizNext(){
       return Promise.resolve(false);
     }
     setSaveLines('Saved on this device — saving this result to your account…');
-    // Make sure the account profile row exists first (attempts point at it).
-    return syncProfile().then(function(){ return loadTests(); }).then(function(){
+    // profile_id below is ALWAYS the live auth session user's id.
+    return getAuthUserId().then(function(authId){
+      if(!authId){
+        setSaveLines('Saved on this device only — please log in to sync this result to your account.');
+        return false;
+      }
+      // Make sure the account profile row exists first (attempts point at it).
+      return syncProfile().then(function(){ return loadTests(); }).then(function(){
       var t=resolveDbTest(a);
       if(!t){
-        EGDB.syncNote='Your last result is saved on this device — this practice set is not in the account database catalogue yet, so it was not sent to your account.';
-        setSaveLines('Saved on this device only — this set is not in the account catalogue yet.');
+        // Show the real catalogue error when the lookup itself failed;
+        // otherwise name the exact title that had no exact match.
+        var why=EGDB.testsError?('Catalogue error: '+firstErr(EGDB.testsError)):('No exact match in the account catalogue for "'+(a.title||clientTestTitle(a.testId)||a.testId||'this test')+'" ('+(a.skill||'module')+').');
+        EGDB.syncNote='Your last result is saved on this device only. '+why;
+        setSaveLines('Saved on this device only — '+why);
         renderDbStatus();
         return false;
       }
@@ -3883,7 +3927,7 @@ function quizNext(){
       var whenIso=new Date(a.when||Date.now()).toISOString();
       function insertWith(col){
         var row={ test_id:t.id, score:score, band:bandTxt, started_at:whenIso, finished_at:whenIso };
-        row[col]=EGDB.user.id;
+        row[col]=authId;
         return EGDB.client.from('attempts').insert(row).select('id').single();
       }
       return insertWith('profile_id').then(function(res){
@@ -3892,7 +3936,7 @@ function quizNext(){
         return res;
       }).then(function(res){
         if(res.error){
-          var msg=errText(res.error);
+          var msg=firstErr(res.error);
           EGDB.online=false; EGDB.unreachable=true;
           EGDB.syncNote='Your last result could not be saved to your account ('+msg+') — it is saved on this device.';
           setSaveLines('Saved on this device only — your account save failed: '+msg);
@@ -3906,10 +3950,11 @@ function quizNext(){
         renderDbStatus();
         return true;
       });
+      });
     }).catch(function(e){
       EGDB.online=false; EGDB.unreachable=true;
-      EGDB.syncNote='Your last result could not be saved to your account ('+errText(e)+') — it is saved on this device.';
-      setSaveLines('Saved on this device only — your account save failed: '+errText(e));
+      EGDB.syncNote='Your last result could not be saved to your account ('+firstErr(e)+') — it is saved on this device.';
+      setSaveLines('Saved on this device only — your account save failed: '+firstErr(e));
       renderDbStatus();
       return false;
     });
@@ -4060,7 +4105,7 @@ function quizNext(){
 
   window.egSignOut=function(){
     function after(){
-      EGDB.user=null; EGDB.profile=null; EGDB.syncNote='';
+      EGDB.user=null; EGDB.profile=null; EGDB.syncNote=''; EGDB.pendingProfile=null; EGDB._acctPrompted=false;
       renderDbStatus();
       try{ var m=document.getElementById('saveMsg'); if(m) m.textContent='You are logged out — you are learning as a guest again, and the history on this device is untouched.'; }catch(e){}
     }
@@ -4073,7 +4118,28 @@ function quizNext(){
     EGDB.user=(session&&session.user)||null;
     if(EGDB.user){
       loadProfile()
-        .then(function(){ return syncProfile(); })
+        .then(function(profile){
+          var hasName=!!(profile&&profile.name);
+          var hasTarget=!!(profile&&profile.target_score!=null&&String(profile.target_score).trim()!=='');
+          if(profile&&hasName&&hasTarget){
+            // Database profile exists: dashboard already shows its name/target
+            // (loadProfile). Refresh the row from the database values only.
+            return syncProfile();
+          }
+          var meta=(EGDB.user&&EGDB.user.user_metadata)||{};
+          var explicitName=(EGDB.pendingProfile&&EGDB.pendingProfile.name)||meta.name||meta.full_name||'';
+          if(explicitName){
+            // Just signed up / just finished onboarding while logged in:
+            // create the row from that explicit name, under the auth id.
+            return syncProfile();
+          }
+          // Logged in but the database has no profile for this account yet:
+          // name + target MUST be asked for — the device name is not reused.
+          EGDB.syncNote='You are logged in — add your name and target band once to create your account profile.';
+          renderDbStatus();
+          promptAccountProfile();
+          return false;
+        })
         .then(function(){ return loadDbAttempts(); })
         .then(function(){ renderDbStatus(); });
     }else{
@@ -4089,7 +4155,15 @@ function quizNext(){
   }catch(e){}
   try{
     var _obFinishOrig=obFinish;
-    obFinish=function(){ _obFinishOrig(); try{ syncProfile(); }catch(e){} };
+    obFinish=function(){
+      _obFinishOrig();
+      // What was just typed in onboarding is the explicit source for the
+      // account profile (guests: syncProfile does nothing without a session).
+      try{
+        if(EGDB.user){ EGDB.pendingProfile={ name:(guestProfile&&guestProfile.name)||'', target:(guestProfile&&guestProfile.target)||'', email:EGDB.user.email||null }; EGDB._acctPrompted=false; }
+        syncProfile();
+      }catch(e){}
+    };
   }catch(e){}
 
   /* ---------- init (a failed init must never block the site) ---------- */
