@@ -1494,6 +1494,7 @@ function checkWriting(){
  document.getElementById('bandHint').textContent=words+' words • '+sents+' sentences • Avg '+avgLen.toFixed(1)+' words / sentence • Vocabulary diversity '+(diversity*100).toFixed(0)+'%';
  const crit=[['Task Response',Math.min(9,band+0.3)],['Coherence & Cohesion',band],['Lexical Resource (Vocabulary)',Math.max(4,band-0.2)],['Grammar Range & Accuracy',Math.max(4,band-0.3)]];
  document.getElementById('criteria').innerHTML=crit.map(c=>`<div class="crit"><span>${c[0]}</span><span style="display:flex;align-items:center;gap:8px"><span class="bar" style="width:90px"><i style="width:${c[1]/9*100}%;background:var(--teal)"></i></span><b class="mono">${c[1].toFixed(1)}</b></span></div>`).join('');
+ try{ var _rc=document.getElementById('resultCard'); if(_rc&&!_rc.querySelector('[data-save-line]')){ var _sl=document.createElement('p'); _sl.setAttribute('data-save-line',''); _sl.className='small'; _sl.style.cssText='margin-top:10px;font-weight:700;color:var(--navy)'; _sl.textContent='Saved on this device. Checking whether this result also saved to your account…'; _rc.appendChild(_sl); } }catch(e){}
  try{ recordAttempt({skill:'writing',testId:'writing-checker',title:'Writing Checker',scoreStr:formatBandScore(window.selectedExam||selectedExam||'IELTS', band),pct:Math.round(band/9*100),band:band}); }catch(e){}
  pushHistory('Writing Checker',formatBandScore(window.selectedExam||selectedExam||'IELTS', band),words+' words • '+(EXAMS[window.selectedExam||selectedExam||'IELTS']||EXAMS.IELTS).full);
 }
@@ -1564,7 +1565,7 @@ function nextQ(){
    const band=(4+score*1.0).toFixed(1); // 0->4, 5->9 capped
    const bb=Math.min(9,4+score).toFixed(1);
    document.getElementById('quizResult').style.display='block';
-   document.getElementById('quizResult').innerHTML=`<h3 style="color:var(--teal-dark)">🎉 Your estimated score: ${bb}</h3><p style="font-size:14px;margin-top:6px">You got <b>${score}</b> out of 5 correct. ${score>=4?'You are ready for the Core course (target score) for your selected exam.':score>=2?'Starting with Foundation, an intermediate score is possible in 6 weeks.':'Do not worry — Foundation English will take you from the basics to a strong level.'} The roadmap below is made for you.</p><a href="#roadmap" class="btn btn-navy btn-sm" style="margin-top:10px">View my roadmap →</a><a href="#history" class="btn btn-outline btn-sm" style="margin-top:10px;margin-left:8px">View in History</a>`;
+   document.getElementById('quizResult').innerHTML=`<h3 style="color:var(--teal-dark)">🎉 Your estimated score: ${bb}</h3><p style="font-size:14px;margin-top:6px">You got <b>${score}</b> out of 5 correct. ${score>=4?'You are ready for the Core course (target score) for your selected exam.':score>=2?'Starting with Foundation, an intermediate score is possible in 6 weeks.':'Do not worry — Foundation English will take you from the basics to a strong level.'} The roadmap below is made for you.</p><p data-save-line class="small" style="margin-top:8px;font-weight:700;color:var(--navy)">Saved on this device. Checking whether this result also saved to your account…</p><a href="#roadmap" class="btn btn-navy btn-sm" style="margin-top:10px">View my roadmap →</a><a href="#history" class="btn btn-outline btn-sm" style="margin-top:10px;margin-left:8px">View in History</a>`;
    document.getElementById('quizNext').style.display='none';
    try{ recordAttempt({skill:'level',testId:'level-test',title:'2-Minute Level Test',scoreStr:'Score '+bb,pct:score*20,band:parseFloat(bb)}); }catch(e){}
    pushHistory('Level Test','Score '+bb,score+'/5 correct • '+(window.selectedExam||selectedExam||'IELTS'));
@@ -2300,7 +2301,7 @@ function submitPractice(){
  bank.questions.forEach(function(q,qi){ var picked=practiceState.answers[qi]; var isOk=picked===q.answer; if(isOk) correct++; var box=document.getElementById('pq-'+qi); if(!box) return; var opts=box.querySelectorAll('.opt'); for(var i=0;i<opts.length;i++){ opts[i].disabled=true; if(i===q.answer) opts[i].classList.add('key-correct'); else if(i===picked) opts[i].classList.add('key-wrong'); } var key=box.querySelector('.practice-key'); if(key){ key.innerHTML='<p style="font-size:13.5px;margin-top:10px">'+(isOk?'✅ <b>Correct.</b> ':'❌ <b>Not quite.</b> Correct answer: <b>'+String.fromCharCode(65+q.answer)+'. '+q.options[q.answer]+'</b>. ')+q.why+'</p>'; } });
  practiceState.submitted=true; stopPracticeTimers(); var tEl=document.getElementById('practiceTimer'); if(tEl) tEl.textContent='✓ Submitted';
  var scoreStr=formatPracticeScore(practiceState.exam, correct, total);
- var res=document.getElementById('practiceResult'); if(res){ res.innerHTML='<div style="background:var(--teal-light);border:1px solid color-mix(in srgb, var(--teal) 30%, transparent);border-radius:14px;padding:16px"><h3 style="font-size:18px">Your result: '+scoreStr+'</h3><p class="small" style="margin-top:6px">'+correct+' of '+total+' correct • '+(EXAMS[practiceState.exam].full)+' • '+practiceState.mod.name+' ('+practiceState.level+'). Review the answer key above — every question includes an explanation. This result has been saved to your History.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a href="#history" class="btn btn-navy btn-sm">View in History</a><button class="btn btn-outline btn-sm" onclick="closePractice()">Back to modules</button></div></div>'; res.scrollIntoView({behavior:'smooth',block:'center'}); }
+ var res=document.getElementById('practiceResult'); if(res){ res.innerHTML='<div style="background:var(--teal-light);border:1px solid color-mix(in srgb, var(--teal) 30%, transparent);border-radius:14px;padding:16px"><h3 style="font-size:18px">Your result: '+scoreStr+'</h3><p class="small" style="margin-top:6px">'+correct+' of '+total+' correct • '+(EXAMS[practiceState.exam].full)+' • '+practiceState.mod.name+' ('+practiceState.level+'). Review the answer key above — every question includes an explanation. This result has been saved to your History.</p><p data-save-line class="small" style="margin-top:8px;font-weight:700;color:var(--navy)">Saved on this device. Checking whether this result also saved to your account…</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><a href="#history" class="btn btn-navy btn-sm">View in History</a><button class="btn btn-outline btn-sm" onclick="closePractice()">Back to modules</button></div></div>'; res.scrollIntoView({behavior:'smooth',block:'center'}); }
  try{ recordAttempt({skill:practiceState.skill,testId:practiceState.testId||'',title:(practiceState.testDef?practiceState.testDef.title:practiceState.mod.name+' Practice'),scoreStr:scoreStr,pct:Math.round(correct/total*100),band:(practiceState.exam==='IELTS'?Math.round((4+(correct/total)*4.5)*2)/2:null)}); }catch(e){}
  pushHistory(practiceState.mod.name+' Practice', scoreStr, (EXAMS[practiceState.exam].full)+' • '+correct+'/'+total+' correct');
 }
@@ -2326,7 +2327,7 @@ function checkPracticeWriting(){
  var cn= ex.officialType==='ai' ? ['Content & Development','Organisation','Vocabulary Range','Grammar Accuracy'] : ['Task Response','Coherence & Cohesion','Lexical Resource (Vocabulary)','Grammar Range & Accuracy'];
  var crit=[[cn[0],Math.min(9,band+0.3)],[cn[1],band],[cn[2],Math.max(4,band-0.2)],[cn[3],Math.max(4,band-0.3)]];
  var tips=[]; if(words<250&&practiceState.exam==='IELTS') tips.push('Develop your answer further — IELTS Task 2 and the General Training essay expect at least 250 words (the letter, at least 150).'); if(avgLen<=14) tips.push('Build longer, well-linked sentences: combine short ideas with linking words such as “however”, “moreover” and “as a result”.'); if(diversity<=0.55) tips.push('Widen your vocabulary range — avoid repeating the same words; choose precise synonyms instead.'); if(!/however|moreover|furthermore|in conclusion|firstly|secondly/i.test(text)) tips.push('Add signposting language (Firstly, Moreover, In conclusion) so your organisation is effortless to follow.'); if(!tips.length) tips.push('Strong structure and range — now polish your weakest criterion below and compare your answer with the model.');
- if(fb) fb.innerHTML='<div style="background:var(--teal-light);border:1px solid color-mix(in srgb, var(--teal) 30%, transparent);border-radius:14px;padding:16px"><h3 style="font-size:18px">Estimated score: '+scoreStr+'</h3><p class="small" style="margin-top:4px">'+ex.full+' • '+practiceState.mod.name+' • '+words+' words. '+(ex.officialType==='human'?'Examiner-style estimate — in the real exam the score is awarded by a human examiner.':ex.officialType==='ai'?'AI-scored estimate, mirroring the real PTE scoring.':'Hybrid-style estimate, covering AI-scored drills and human-rater criteria.')+'</p>'+crit.map(function(c){return '<div class="crit"><span>'+c[0]+'</span><span style="display:flex;align-items:center;gap:8px"><span class="bar" style="width:90px"><i style="width:'+(c[1]/9*100)+'%;background:var(--teal)"></i></span><b class="mono">'+c[1].toFixed(1)+'</b></span></div>';}).join('')+'<div style="margin-top:10px">'+tips.map(function(x){return '<div class="feedback-item">✏️ '+x+'</div>';}).join('')+'</div><p class="small" style="margin-top:10px">Saved to your History. Compare your text with the model answer above to see the habits of a top-scoring response.</p></div>';
+ if(fb) fb.innerHTML='<div style="background:var(--teal-light);border:1px solid color-mix(in srgb, var(--teal) 30%, transparent);border-radius:14px;padding:16px"><h3 style="font-size:18px">Estimated score: '+scoreStr+'</h3><p class="small" style="margin-top:4px">'+ex.full+' • '+practiceState.mod.name+' • '+words+' words. '+(ex.officialType==='human'?'Examiner-style estimate — in the real exam the score is awarded by a human examiner.':ex.officialType==='ai'?'AI-scored estimate, mirroring the real PTE scoring.':'Hybrid-style estimate, covering AI-scored drills and human-rater criteria.')+'</p>'+crit.map(function(c){return '<div class="crit"><span>'+c[0]+'</span><span style="display:flex;align-items:center;gap:8px"><span class="bar" style="width:90px"><i style="width:'+(c[1]/9*100)+'%;background:var(--teal)"></i></span><b class="mono">'+c[1].toFixed(1)+'</b></span></div>';}).join('')+'<div style="margin-top:10px">'+tips.map(function(x){return '<div class="feedback-item">✏️ '+x+'</div>';}).join('')+'</div><p class="small" style="margin-top:10px">Saved to your History. Compare your text with the model answer above to see the habits of a top-scoring response.</p><p data-save-line class="small" style="margin-top:8px;font-weight:700;color:var(--navy)">Saved on this device. Checking whether this result also saved to your account…</p></div>';
  if(fb) fb.scrollIntoView({behavior:'smooth',block:'center'});
  try{ recordAttempt({skill:'writing',testId:practiceState.testId||'',title:(practiceState.testDef?practiceState.testDef.title:practiceState.mod.name+' Writing'),scoreStr:scoreStr,pct:Math.round(band/9*100),band:band}); }catch(e){}
  pushHistory('Writing Practice', scoreStr, ex.full+' • '+practiceState.mod.name+' • '+words+' words');
@@ -2342,7 +2343,7 @@ function renderSpeakingPractice(bank, ex){
  +'<div id="pSpeakDone" style="margin-top:14px"></div>';
 }
 function startPrepTimer(){ var el=document.getElementById('prepTimer'); if(!el) return; if(prepTimerInt) clearInterval(prepTimerInt); var left=60; el.textContent='Preparation: 01:00 — note your key points'; prepTimerInt=setInterval(function(){ left--; if(left<0){ clearInterval(prepTimerInt); prepTimerInt=null; el.textContent='Time to speak — give your full answer out loud.'; return; } el.textContent='Preparation: '+String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0'); },1000); }
-function completeSpeakingPractice(){ if(!practiceState) return; var d=document.getElementById('pSpeakDone'); var t=document.getElementById('pSpeak'); var words=t?((t.value.trim().match(/\S+/g)||[]).length):0; if(d) d.innerHTML='<div style="background:var(--teal-light);border:1px solid color-mix(in srgb, var(--teal) 30%, transparent);border-radius:14px;padding:14px"><b>✓ Speaking practice complete</b><p class="small" style="margin-top:4px">'+(EXAMS[practiceState.exam].full)+' • '+practiceState.mod.name+(words?' • '+words+' words planned or written':'')+'. Saved to your History — a little speaking every day is what builds real fluency.</p></div>'; try{ recordAttempt({skill:'speaking',testId:practiceState.testId||'',title:(practiceState.testDef?practiceState.testDef.title:practiceState.mod.name+' Speaking'),scoreStr:'Completed',pct:null,band:null}); }catch(e){}
+function completeSpeakingPractice(){ if(!practiceState) return; var d=document.getElementById('pSpeakDone'); var t=document.getElementById('pSpeak'); var words=t?((t.value.trim().match(/\S+/g)||[]).length):0; if(d) d.innerHTML='<div style="background:var(--teal-light);border:1px solid color-mix(in srgb, var(--teal) 30%, transparent);border-radius:14px;padding:14px"><b>✓ Speaking practice complete</b><p class="small" style="margin-top:4px">'+(EXAMS[practiceState.exam].full)+' • '+practiceState.mod.name+(words?' • '+words+' words planned or written':'')+'. Saved to your History — a little speaking every day is what builds real fluency.</p><p data-save-line class="small" style="margin-top:8px;font-weight:700;color:var(--navy)">Saved on this device. Checking whether this result also saved to your account…</p></div>'; try{ recordAttempt({skill:'speaking',testId:practiceState.testId||'',title:(practiceState.testDef?practiceState.testDef.title:practiceState.mod.name+' Speaking'),scoreStr:'Completed',pct:null,band:null}); }catch(e){}
  pushHistory('Speaking Practice','Completed',(EXAMS[practiceState.exam].full)+' • '+practiceState.mod.name); }
 function startLibraryTest(id){
  if(id==='lt'||id==='foundation'){ location.hash='#/tools'; setTimeout(function(){var q=document.getElementById('level-test'); if(q) q.scrollIntoView({behavior:'smooth'});},80); return; }
@@ -3634,11 +3635,30 @@ function quizNext(){
    it never claims a result was saved to the account when it was not. */
 (function(){
   var CFG=window.ENGOWRA_CONFIG||{};
-  var EGDB={client:null,user:null,profile:null,online:null,unreachable:false,tests:[],testsLoaded:false,syncNote:''};
+  var EGDB={client:null,user:null,profile:null,online:null,unreachable:false,tests:[],testsLoaded:false,testsError:'',syncNote:'',pendingProfile:null,lastAttemptSave:''};
   window.EGDB=EGDB;
 
   function cfgReady(){ return !!CFG.SUPABASE_URL && !!CFG.SUPABASE_ANON_KEY && CFG.SUPABASE_URL.indexOf('YOUR-')<0 && CFG.SUPABASE_ANON_KEY.indexOf('YOUR_')<0; }
   function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function errText(e){ if(!e) return 'Unknown database error'; return String(e.message||e.details||e.hint||e.code||e); }
+  function setSaveLines(text){
+    EGDB.lastAttemptSave=text;
+    try{ var nodes=document.querySelectorAll('[data-save-line]'); for(var i=0;i<nodes.length;i++) nodes[i].textContent=text; }catch(e){}
+  }
+  function showProfileSaveError(message){
+    EGDB.syncNote='Profile could not be saved to your account: '+message+' Your name and target are still saved on this device.';
+    try{ var sm=document.getElementById('saveMsg'); if(sm) sm.textContent='⚠️ '+EGDB.syncNote; }catch(e){}
+    try{ var oe=document.getElementById('obErr2'); var om=document.getElementById('onboardingModal'); if(oe&&om&&om.classList.contains('open')) oe.textContent=EGDB.syncNote; }catch(e){}
+    renderDbStatus();
+  }
+  function skillFromSlug(s){
+    s=String(s||'').toLowerCase();
+    if(s.indexOf('listen')>=0) return 'listening';
+    if(s.indexOf('read')>=0) return 'reading';
+    if(s.indexOf('writ')>=0) return 'writing';
+    if(s.indexOf('speak')>=0) return 'speaking';
+    return '';
+  }
 
   /* ---------- status UI (nav account chip + history banner) ---------- */
   function renderDbStatus(){
@@ -3676,53 +3696,111 @@ function quizNext(){
     if(!EGDB.client||!EGDB.user) return Promise.resolve(null);
     return EGDB.client.from('profiles').select('id,name,email,role,selected_exam,target_score,is_paid,subscription_plan').eq('id',EGDB.user.id).maybeSingle()
       .then(function(res){
-        if(res.error){ EGDB.online=false; EGDB.unreachable=true; renderDbStatus(); return null; }
+        if(res.error){ EGDB.online=false; EGDB.unreachable=true; EGDB.syncNote='Your account profile could not be loaded: '+errText(res.error); renderDbStatus(); return null; }
         EGDB.online=true; EGDB.profile=res.data||null;
-        // Adopt the account profile onto this device only when the device has no plan yet.
-        if(EGDB.profile && !guestProfile.done){
-          var nm=EGDB.profile.name, tg=EGDB.profile.target_score;
+        // Signed-in account data wins on the dashboard: if the account has a
+        // saved name/target, show that — not only whatever this device had.
+        if(EGDB.profile){
+          var nm=EGDB.profile.name||'';
+          var tgRaw=EGDB.profile.target_score, tg='';
+          if(typeof tgRaw==='number'&&isFinite(tgRaw)) tg='Band '+tgRaw;
+          else if(tgRaw!=null&&String(tgRaw).trim()!=='') tg=/^[0-9]+(\.[0-9]+)?$/.test(String(tgRaw).trim())?('Band '+String(tgRaw).trim()):String(tgRaw);
           if(nm||tg){
-            guestProfile.name=nm||guestProfile.name||'Guest';
+            if(nm) guestProfile.name=nm;
             if(tg) guestProfile.target=tg;
-            guestProfile.exam='IELTS'; guestProfile.done=true;
+            guestProfile.exam='IELTS';
+            if(guestProfile.name&&guestProfile.target) guestProfile.done=true;
             try{ localStorage.setItem('engowra_profile',JSON.stringify(guestProfile)); }catch(e){}
-            try{ applyGuestProfile(); var dt=document.getElementById('dashTitle'); if(dt&&nm) dt.textContent='Welcome back, '+nm+'! Your IELTS dashboard'; }catch(e){}
+            try{
+              if(guestProfile.done&&typeof applyGuestProfile==='function') applyGuestProfile();
+              var dt=document.getElementById('dashTitle'); if(dt&&nm) dt.textContent='Welcome back, '+nm+'! Your IELTS dashboard';
+              var av=document.getElementById('dashAvatar'); if(av&&nm) av.textContent=nm.trim().charAt(0).toUpperCase()||'E';
+              var dT=document.getElementById('dashTarget'); if(dT&&tg) dT.textContent=tg;
+              var dTC=document.getElementById('dashTargetCard'); if(dTC&&tg) dTC.textContent=tg;
+            }catch(e){}
           }
         }
         renderDbStatus();
         return EGDB.profile;
-      }).catch(function(){ EGDB.online=false; EGDB.unreachable=true; renderDbStatus(); return null; });
+      }).catch(function(e){ EGDB.online=false; EGDB.unreachable=true; EGDB.syncNote='Your account profile could not be loaded: '+errText(e); renderDbStatus(); return null; });
   }
   function syncProfile(){
     if(!EGDB.client||!EGDB.user) return Promise.resolve(false);
-    var patch={ last_seen_at:new Date().toISOString(), selected_exam:'ielts' };
-    if(guestProfile&&guestProfile.name) patch.name=guestProfile.name;
-    if(guestProfile&&guestProfile.target) patch.target_score=guestProfile.target;
-    if(EGDB.user.email) patch.email=EGDB.user.email;
-    return EGDB.client.from('profiles').update(patch).eq('id',EGDB.user.id).select('id')
-      .then(function(res){
-        if(res.error){ EGDB.online=false; EGDB.unreachable=true; renderDbStatus(); return false; }
-        EGDB.online=true;
-        if(!res.data||!res.data.length){ EGDB.syncNote='Your account profile row was not found in the database — your name and target are saved on this device for now.'; renderDbStatus(); return false; }
-        if(EGDB.profile){ for(var k in patch) EGDB.profile[k]=patch[k]; }
-        renderDbStatus();
-        return true;
-      }).catch(function(){ EGDB.online=false; EGDB.unreachable=true; renderDbStatus(); return false; });
+    var meta=(EGDB.user&&EGDB.user.user_metadata)||{};
+    var pending=EGDB.pendingProfile||{};
+    var name=pending.name||(guestProfile&&guestProfile.name)||meta.name||meta.full_name||(EGDB.profile&&EGDB.profile.name)||'';
+    var target=pending.target||(guestProfile&&guestProfile.target)||(EGDB.profile&&EGDB.profile.target_score)||'';
+    if(typeof target==='number'&&isFinite(target)) target='Band '+target;
+    var email=pending.email||EGDB.user.email||(EGDB.profile&&EGDB.profile.email)||null;
+    // A real UPSERT (insert-or-update on the auth user's id): an UPDATE alone
+    // silently touches zero rows when the profile row does not exist yet,
+    // which left public.profiles empty even though login worked.
+    var base={ id:EGDB.user.id, last_seen_at:new Date().toISOString(), selected_exam:'ielts' };
+    if(name) base.name=name;
+    if(email) base.email=email;
+    if(target) base.target_score=target;
+    function attempt(row){
+      return EGDB.client.from('profiles').upsert(row,{onConflict:'id'}).select('id,name,email,target_score,selected_exam');
+    }
+    function finish(res,row){
+      EGDB.online=true; EGDB.unreachable=false;
+      EGDB.profile=(res.data&&res.data[0])||row;
+      EGDB.syncNote='✓ Your profile is saved to your Engowra account.';
+      renderDbStatus();
+      return true;
+    }
+    return attempt(base).then(function(res){
+      if(!res.error) return finish(res,base);
+      var msg=errText(res.error), retry=null, k;
+      if(/target_score|numeric|double precision|real|integer/i.test(msg)&&target){
+        var n=parseFloat(String(target).replace(/[^0-9.]/g,''));
+        if(isFinite(n)){ retry={}; for(k in base) retry[k]=base[k]; retry.target_score=n; }
+      }else if(/selected_exam/i.test(msg)){
+        retry={}; for(k in base) retry[k]=base[k]; retry.selected_exam='IELTS';
+      }
+      if(retry){
+        return attempt(retry).then(function(res2){
+          if(!res2.error) return finish(res2,retry);
+          EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(errText(res2.error)); return false;
+        });
+      }
+      EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(msg); return false;
+    }).catch(function(e){ EGDB.online=false; EGDB.unreachable=true; showProfileSaveError(errText(e)); return false; });
   }
   window.egSyncProfile=syncProfile;
 
   /* ---------- test catalogue lookup (client test -> database tests row) ---------- */
   function normTitle(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim(); }
-  function loadTests(){
-    if(!EGDB.client||EGDB.testsLoaded) return Promise.resolve(EGDB.tests);
+  function coreTitle(s){
+    var n=' '+normTitle(s)+' ';
+    n=n.replace(/\b(test|task|part)\s*\d+\b/g,' ');
+    n=n.replace(/\b(ielts|pte|toefl|oxford|languagecert|listening|reading|writing|speaking|skills|drill|section|module|practice|set)\b/g,' ');
+    return n.replace(/\s+/g,' ').trim();
+  }
+  function loadTests(force){
+    if(!EGDB.client) return Promise.resolve(EGDB.tests);
+    if(EGDB.testsLoaded&&!force) return Promise.resolve(EGDB.tests);
+    function store(rows){
+      EGDB.testsLoaded=true; EGDB.testsError='';
+      EGDB.tests=(rows||[]).map(function(t){
+        var slug=(t.modules&&t.modules.slug)||t._slug||'';
+        return { id:t.id, title:t.title, skill:skillFromSlug(slug)||skillFromSlug(t.title), norm:normTitle(t.title), core:coreTitle(t.title) };
+      });
+      return EGDB.tests;
+    }
     return EGDB.client.from('tests').select('id,title,modules(slug)').limit(500)
       .then(function(res){
-        EGDB.testsLoaded=true;
-        if(res.error) return EGDB.tests;
-        EGDB.online=true;
-        EGDB.tests=(res.data||[]).map(function(t){ return { id:t.id, title:t.title, skill:(t.modules&&t.modules.slug)||'', norm:normTitle(t.title) }; });
-        return EGDB.tests;
-      }).catch(function(){ EGDB.testsLoaded=true; return EGDB.tests; });
+        if(!res.error){ EGDB.online=true; return store(res.data); }
+        EGDB.testsError=errText(res.error);
+        // Fallback shape: module_id + a modules lookup (same catalogue, no embed).
+        return EGDB.client.from('tests').select('id,title,module_id').limit(500).then(function(res2){
+          if(res2.error){ EGDB.testsLoaded=false; EGDB.testsError=errText(res2.error); return EGDB.tests; }
+          return EGDB.client.from('modules').select('id,slug').limit(100).then(function(mres){
+            var map={}; (mres.data||[]).forEach(function(m){ map[m.id]=m.slug||''; });
+            return store((res2.data||[]).map(function(t){ return { id:t.id, title:t.title, _slug:map[t.module_id]||'' }; }));
+          }).catch(function(){ return store(res2.data||[]); });
+        });
+      }).catch(function(e){ EGDB.testsLoaded=false; EGDB.testsError=errText(e); return EGDB.tests; });
   }
   function clientTestTitle(testId){
     try{
@@ -3733,31 +3811,107 @@ function quizNext(){
   }
   function resolveDbTest(a){
     if(!a||!EGDB.tests.length) return null;
-    var nt=normTitle(a.title||clientTestTitle(a.testId)); if(!nt) return null;
+    var raw=a.title||clientTestTitle(a.testId);
+    var nt=normTitle(raw); if(!nt) return null;
+    var ct=coreTitle(raw);
+    var skill=a.skill||'';
+    var pool=EGDB.tests;
+    if(skill){
+      var bySkill=pool.filter(function(t){ return !t.skill||t.skill===skill; });
+      if(bySkill.length) pool=bySkill;
+    }
     var i;
-    for(i=0;i<EGDB.tests.length;i++){ if(EGDB.tests[i].norm===nt) return EGDB.tests[i]; }
-    for(i=0;i<EGDB.tests.length;i++){ var dn=EGDB.tests[i].norm; if(dn&&(dn.indexOf(nt)>=0||nt.indexOf(dn)>=0)) return EGDB.tests[i]; }
+    // 1) exact title, then 2) title containment — inside this module first.
+    for(i=0;i<pool.length;i++){ if(pool[i].norm===nt) return pool[i]; }
+    for(i=0;i<pool.length;i++){ var dn=pool[i].norm; if(dn&&(dn.indexOf(nt)>=0||nt.indexOf(dn)>=0)) return pool[i]; }
+    // 3) core title (module word + "Test N" stripped) exact / containment.
+    if(ct){
+      for(i=0;i<pool.length;i++){ if(pool[i].core&&pool[i].core===ct) return pool[i]; }
+      for(i=0;i<pool.length;i++){ var dc=pool[i].core; if(dc&&(dc.indexOf(ct)>=0||ct.indexOf(dc)>=0)) return pool[i]; }
+    }
+    // 4) same set number inside the same module (e.g. client "Test 4" <-> row "Test 4").
+    var num=null, m=String(raw).match(/(?:test|task|part)\s*(\d+)/i);
+    if(m) num=m[1];
+    if(!num){ var mid=String(a.testId||'').match(/(\d+)/); if(mid) num=mid[1]; }
+    if(num){
+      var numbered=pool.filter(function(t){ var tm=String(t.title).match(/(?:test|task|part)\s*(\d+)/i); return tm&&tm[1]===num; });
+      if(numbered.length===1) return numbered[0];
+      if(numbered.length>1&&ct){
+        var bestN=null,bestS=0;
+        numbered.forEach(function(t){ var s=tokenScore(ct,t.core); if(s>bestS){ bestS=s; bestN=t; } });
+        if(bestN) return bestN;
+        return numbered[0];
+      }
+    }
+    // 5) word-overlap on the core title.
+    if(ct){
+      var best=null,bestScore=0;
+      pool.forEach(function(t){ var s=tokenScore(ct,t.core); if(s>bestScore){ bestScore=s; best=t; } });
+      if(best&&bestScore>=0.6) return best;
+    }
     return null;
+  }
+  function tokenScore(a,b){
+    if(!a||!b) return 0;
+    var aw=a.split(' ').filter(Boolean), bw=b.split(' ').filter(Boolean);
+    if(!aw.length||!bw.length) return 0;
+    var set={}; bw.forEach(function(w){ set[w]=1; });
+    var hit=0; aw.forEach(function(w){ if(set[w]) hit++; });
+    return hit/Math.min(aw.length,bw.length);
   }
   window.egResolveDbTest=resolveDbTest;
 
   /* ---------- attempts: real insert into public.attempts (signed-in only) ---------- */
   function saveAttemptToDb(a){
-    if(!EGDB.client||!EGDB.user||!a) return Promise.resolve(false);
-    return loadTests().then(function(){
+    if(!a) return Promise.resolve(false);
+    if(!EGDB.client||!EGDB.user){
+      setSaveLines('Saved on this device only — log in to sync this result to your account.');
+      return Promise.resolve(false);
+    }
+    setSaveLines('Saved on this device — saving this result to your account…');
+    // Make sure the account profile row exists first (attempts point at it).
+    return syncProfile().then(function(){ return loadTests(); }).then(function(){
       var t=resolveDbTest(a);
-      if(!t){ EGDB.syncNote='Your last result is saved on this device — this practice set is not in the account database catalogue yet, so it was not sent to your account.'; renderDbStatus(); return false; }
+      if(!t){
+        EGDB.syncNote='Your last result is saved on this device — this practice set is not in the account database catalogue yet, so it was not sent to your account.';
+        setSaveLines('Saved on this device only — this set is not in the account catalogue yet.');
+        renderDbStatus();
+        return false;
+      }
       var score=(a.band!=null)?a.band:((a.pct!=null)?a.pct:null);
       var bandTxt=a.scoreStr||(a.band!=null?('Band '+Number(a.band).toFixed(1)):null);
       var whenIso=new Date(a.when||Date.now()).toISOString();
-      return EGDB.client.from('attempts').insert({ profile_id:EGDB.user.id, test_id:t.id, score:score, band:bandTxt, started_at:whenIso, finished_at:whenIso }).select('id').single()
-        .then(function(res){
-          if(res.error){ EGDB.online=false; EGDB.unreachable=true; EGDB.syncNote='Your last result could not be sent to your account database — it is saved on this device.'; renderDbStatus(); return false; }
-          EGDB.online=true; EGDB.syncNote='✓ Your last result was also saved to your Engowra account.';
-          a.dbId=res.data.id; try{ saveAttempts(); }catch(e){}
+      function insertWith(col){
+        var row={ test_id:t.id, score:score, band:bandTxt, started_at:whenIso, finished_at:whenIso };
+        row[col]=EGDB.user.id;
+        return EGDB.client.from('attempts').insert(row).select('id').single();
+      }
+      return insertWith('profile_id').then(function(res){
+        // Same insert, whichever user column this database uses.
+        if(res.error&&/profile_id|column/i.test(errText(res.error))) return insertWith('user_id');
+        return res;
+      }).then(function(res){
+        if(res.error){
+          var msg=errText(res.error);
+          EGDB.online=false; EGDB.unreachable=true;
+          EGDB.syncNote='Your last result could not be saved to your account ('+msg+') — it is saved on this device.';
+          setSaveLines('Saved on this device only — your account save failed: '+msg);
           renderDbStatus();
-          return true;
-        }).catch(function(){ EGDB.online=false; EGDB.unreachable=true; EGDB.syncNote='Your last result could not be sent to your account database — it is saved on this device.'; renderDbStatus(); return false; });
+          return false;
+        }
+        EGDB.online=true;
+        EGDB.syncNote='✓ Your last result was also saved to your Engowra account.';
+        setSaveLines('Saved to your account ✓ — this result will appear on every device you sign in on.');
+        if(res.data&&res.data.id){ a.dbId=res.data.id; try{ saveAttempts(); }catch(e){} }
+        renderDbStatus();
+        return true;
+      });
+    }).catch(function(e){
+      EGDB.online=false; EGDB.unreachable=true;
+      EGDB.syncNote='Your last result could not be saved to your account ('+errText(e)+') — it is saved on this device.';
+      setSaveLines('Saved on this device only — your account save failed: '+errText(e));
+      renderDbStatus();
+      return false;
     });
   }
   window.egSaveAttemptToDb=saveAttemptToDb;
@@ -3766,7 +3920,21 @@ function quizNext(){
   function loadDbAttempts(){
     if(!EGDB.client||!EGDB.user) return Promise.resolve(false);
     return loadTests().then(function(){
-      return EGDB.client.from('attempts').select('id,score,band,started_at,finished_at,test_id,tests(title,modules(slug))').eq('profile_id',EGDB.user.id).order('finished_at',{ascending:false}).limit(60);
+      function embedded(col){
+        return EGDB.client.from('attempts').select('id,score,band,started_at,finished_at,test_id,tests(title,modules(slug))').eq(col,EGDB.user.id).order('finished_at',{ascending:false}).limit(60);
+      }
+      function plain(col){
+        return EGDB.client.from('attempts').select('id,score,band,started_at,finished_at,test_id').eq(col,EGDB.user.id).order('finished_at',{ascending:false}).limit(60);
+      }
+      return embedded('profile_id').then(function(res){
+        if(!res.error) return res;
+        // Fallbacks: plain rows (title/skill come from the loaded catalogue),
+        // then the other user column name if this database uses that one.
+        return plain('profile_id').then(function(r2){
+          if(!r2.error) return r2;
+          return plain('user_id');
+        });
+      });
     }).then(function(res){
       if(!res||res.error){ if(res&&res.error){ EGDB.online=false; EGDB.unreachable=true; } renderDbStatus(); return false; }
       EGDB.online=true;
@@ -3776,8 +3944,10 @@ function quizNext(){
       var added=0;
       rows.forEach(function(r){
         if(byDbId[r.id]) return;
-        var title=(r.tests&&r.tests.title)||'Practice test';
-        var skill=(r.tests&&r.tests.modules&&r.tests.modules.slug)||'';
+        var dbt=null;
+        for(var ti=0;ti<EGDB.tests.length;ti++){ if(EGDB.tests[ti].id===r.test_id){ dbt=EGDB.tests[ti]; break; } }
+        var title=(r.tests&&r.tests.title)||(dbt&&dbt.title)||'Practice test';
+        var skill=skillFromSlug((r.tests&&r.tests.modules&&r.tests.modules.slug)||'')||(dbt&&dbt.skill)||'';
         var whenTs=Date.parse(r.finished_at||r.started_at||'')||Date.now();
         var localId='';
         try{
@@ -3857,21 +4027,27 @@ function quizNext(){
     busy(true);
     if(authMode==='login'){
       show('Logging in…');
+      EGDB.pendingProfile={ email:email };
       EGDB.client.auth.signInWithPassword({ email:email, password:pass }).then(function(res){
         busy(false);
         if(res.error){ show('Login failed: '+res.error.message); return; }
+        // Drive the session now (profile upsert + account history load),
+        // instead of only hoping the auth event fires before the modal closes.
+        if(res.data&&res.data.session){ try{ handleSession(res.data.session); }catch(e){} }
         show('✅ Logged in — loading your saved profile and history…');
         setTimeout(function(){ closeSignup(); },800);
       }).catch(function(){ busy(false); show('Login could not reach the account service. You are still learning as a guest.'); });
     }else{
       if(!name){ busy(false); show('Please enter your name — it appears on your dashboard and in your account profile.'); return; }
       show('Creating your account…');
+      EGDB.pendingProfile={ name:name, email:email };
       EGDB.client.auth.signUp({ email:email, password:pass, options:{ data:{ name:name } } }).then(function(res){
         busy(false);
         if(res.error){ show('Sign-up failed: '+res.error.message); return; }
         if(res.data&&res.data.session){
-          if(!guestProfile.name) guestProfile.name=name;
-          try{ if(guestProfile.name&&!guestProfile.done){ /* keep onboarding flow as-is */ } localStorage.setItem('engowra_profile',JSON.stringify(guestProfile)); }catch(e){}
+          guestProfile.name=name;
+          try{ localStorage.setItem('engowra_profile',JSON.stringify(guestProfile)); }catch(e){}
+          try{ handleSession(res.data.session); }catch(e){}
           show('✅ Account created and you are logged in. Your profile and results now sync to your account.');
           setTimeout(function(){ closeSignup(); },900);
         }else{
