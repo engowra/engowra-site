@@ -825,6 +825,16 @@ select.fm-sel{max-width:420px;width:100%}
         <div id="fmOverallDash"></div>
       </div>
 
+      <!-- FULL MOCK TEST 2 — a second complete original-format paper -->
+      <div style="margin-top:22px" id="fullMock2">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap">
+          <div><div class="kicker">The Complete Original-Format Test</div><h3 style="font-size:22px">FULL MOCK TEST 2 — Original Exam Format</h3><p class="sub" style="margin-top:4px">A second complete paper in the exact shape of exam day: <b>40 Listening questions</b> across 4 sections with a different voice for every speaker, <b>40 Reading questions</b> over 3 full passages, <b>both Writing tasks</b>, and a <b>3-part Speaking test</b>. A brand-new original Engowra paper — a sports-centre booking, a museum tour, a student research project and a lecture on urban transport — built to the official exam format.</p></div>
+          <span class="tag tag-teal">New paper</span>
+        </div>
+        <div id="fmCardsDash2" style="margin-top:14px"></div>
+        <div id="fmOverallDash2"></div>
+      </div>
+
       <!-- PRACTICE SECTIONS (this exam's sections, listed directly on its page) -->
       <div style="margin-top:22px" id="modules">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap">
@@ -903,6 +913,13 @@ select.fm-sel{max-width:420px;width:100%}
       <p class="sub" style="margin-top:4px">A complete test in the exact shape of exam day — 40 Listening questions with a different voice for every speaker, 40 Reading questions over 3 full passages, both Writing tasks and a 3-part Speaking test. An original Engowra paper in the official exam format.</p>
       <div id="fmCardsLib" style="margin-top:12px"></div>
       <div id="fmOverallLib"></div>
+    </div>
+    <div style="margin-top:22px">
+      <div class="kicker">The Complete Original-Format Test</div>
+      <h3 style="font-size:19px;color:var(--navy)">FULL MOCK TEST 2 — Original Exam Format</h3>
+      <p class="sub" style="margin-top:4px">A second complete test in the exact shape of exam day — 40 Listening questions with a different voice for every speaker, 40 Reading questions over 3 full passages, both Writing tasks and a 3-part Speaking test. A brand-new original Engowra paper in the official exam format.</p>
+      <div id="fmCardsLib2" style="margin-top:12px"></div>
+      <div id="fmOverallLib2"></div>
     </div>
     <h3 style="margin-top:20px;font-size:16px">Recommended for you (after onboarding)</h3>
     <div class="library-grid" id="recommendedGrid"></div>
@@ -993,7 +1010,7 @@ select.fm-sel{max-width:420px;width:100%}
 
       <div class="tool-panel" id="tool-dictionary" style="display:none">
         <label for="dcInput" style="font-weight:700">Look up an English word</label>
-        <p class="small" style="margin:4px 0 8px">Built-in English → Urdu dictionary of <b id="dcCount">common</b> IELTS and everyday words, each with an example sentence. If a word is not in the list, we will tell you — a meaning is never invented.</p>
+        <p class="small" style="margin:4px 0 8px">Built-in English → Urdu dictionary of <b id="dcCount">common</b> IELTS and everyday words, each with an example sentence. Type one word, or a short phrase to see the meaning of every word in it. If a word is not in the list, we will tell you — a meaning is never invented.</p>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><input class="field" id="dcInput" type="text" placeholder="For example: crucial, achieve, environment..." style="flex:1;min-width:200px;margin-top:0" onkeydown="if(event.key==='Enter') lookupWord()"/><button class="btn btn-primary" onclick="lookupWord()">Find meaning</button></div>
         <div id="dcOut" aria-live="polite"></div>
       </div>
@@ -1396,7 +1413,7 @@ window.ENGOWRA_CONFIG = {
 <script>
 // ===== Module Slots per Exam (research-based structure — database next phase) =====
 const MODULES={
- IELTS:{note:'All 4 IELTS modules are ready — 8 focused practice sets in each (32 in all) for daily training, plus Full Mock Test 1 above: one complete test in the original exam format. Everything is built to the official Cambridge-published exam format: the same sections, question types, timing and Band 0–9 scoring as the real exam. Every passage, recording script, essay task and model answer is original and written for Engowra; real Cambridge exam papers belong to their publishers and are never copied here. Listening/Reading are checked objectively against the answer key; Writing and Speaking are rated by human examiners in the real exam. Each module has its own library below.',modules:[
+ IELTS:{note:'All 4 IELTS modules are ready — 8 focused practice sets in each (32 in all) for daily training, plus Full Mock Tests 1 and 2 above: two complete tests in the original exam format. Everything is built to the official Cambridge-published exam format: the same sections, question types, timing and Band 0–9 scoring as the real exam. Every passage, recording script, essay task and model answer is original and written for Engowra; real Cambridge exam papers belong to their publishers and are never copied here. Listening/Reading are checked objectively against the answer key; Writing and Speaking are rated by human examiners in the real exam. Each module has its own library below.',modules:[
   {icon:'🎧',name:'Listening',mode:'objective',modeLabel:'Objective / Answer-key',duration:'~30 min',detail:'40 questions • 4 sections • Recording plays only once',parts:'Sections 1–2: everyday conversation • Sections 3–4: academic discussion/lecture',link:'#tools',linkText:'Open Listening Lab'},
   {icon:'📖',name:'Reading',mode:'objective',modeLabel:'Objective / Answer-key',duration:'60 min',detail:'40 questions • 3 passages',parts:'Academic: articles/data • General: notices, ads, short texts (depending on version)',link:'#daily',linkText:'Try the Reading Sprint'},
   {icon:'✍️',name:'Writing',mode:'human',modeLabel:'👤 Human examiner rated',duration:'60 min',detail:'2 tasks • Task 1: 150+ words • Task 2: 250+ words',parts:'Academic Task 1: describe a graph/chart • General Task 1: letter • Task 2: essay (in both)',link:'#checker',linkText:'AI Writing Checker → (real exam: human rated)'},
@@ -3068,7 +3085,17 @@ const DICT=[
 ["finish","ختم کرنا","Finish your work before lunch."],
 ["firm","مضبوط / کمپنی","She works for a law firm."],
 ["fitness","صحت و تندرستی","Fitness improves with regular exercise."],
-["fix","مرمت کرنا","Can you fix this bicycle?"]
+["fix","مرمت کرنا","Can you fix this bicycle?"],
+["important","اہم، ضروری","Sleep is important for memory."],
+["quiet","خاموش، پرسکون","A quiet room helps you concentrate."],
+["survey","سروے، جائزہ","Conduct a small survey before you write the report."],
+["allocate","مختص کرنا، تقسیم کرنا","The school allocated time for revision."],
+["honest","ایماندار، سچا","Be honest in the test."],
+["furious","شدید غصے میں، ناراض","He was furious about the delay."],
+["delighted","بہت خوش، مسرور","She was delighted with her band score."],
+["we","ہم، ہم نے","We study together."],
+["are","ہیں، ہوتے ہیں","Students are curious."],
+["is","ہے، ہوتا ہے","English is a global language."]
 ];
 
 /* ===== Built-in thesaurus: word -> genuine alternative words ===== */
@@ -3540,7 +3567,19 @@ function closeMatches(word, keys){
 function cleanWord(v){ return (v||'').trim().toLowerCase().replace(/[^a-z'\u2019-]/g,'').replace(/\u2019/g,"'"); }
 function lookupWord(){
   var inp=document.getElementById('dcInput'), out=document.getElementById('dcOut'); if(!inp||!out) return;
-  var raw=inp.value||'', w=cleanWord(raw);
+  var raw=inp.value||'';
+  var tokens=raw.split(/\s+/).map(cleanWord).filter(function(x){ return x; });
+  if(tokens.length>1){
+    var found=0;
+    var rowsHtml=tokens.map(function(t){
+      var r=DICTMAP[t];
+      if(r){ found++; return '<p style="margin-top:8px"><b style="color:var(--navy);font-size:16px">'+escHtml(r[0])+'</b> &nbsp;<span class="ur" lang="ur" dir="auto">'+escHtml(r[1])+'</span> <span class="small">&mdash; '+escHtml(r[2])+'</span></p>'; }
+      return '<p style="margin-top:8px"><b style="color:var(--navy);font-size:16px">'+escHtml(t)+'</b> &nbsp;<span class="small" style="color:var(--red-dark);font-weight:700">(not in list)</span></p>';
+    }).join('');
+    out.innerHTML='<div class="tool-out"><span style="font-family:\'Plus Jakarta Sans\',sans-serif;font-weight:800;font-size:17px;color:var(--navy)">Word-by-word meanings</span><p class="small" style="margin-top:6px">'+found+' of '+tokens.length+' words are in the built-in dictionary. These are the meanings of the individual words &mdash; Urdu puts words in a different order, so this is <b>not</b> a translation of the whole sentence.</p>'+rowsHtml+'</div>';
+    return;
+  }
+  var w=tokens[0]||'';
   if(!w){ out.innerHTML='<div class="notice" style="margin-top:12px">Type an English word first.</div>'; return; }
   var r=DICTMAP[w];
   if(r){
@@ -4260,7 +4299,10 @@ var FM_DEFS=[
 var fmState=null;
 var fmAU={sec:-1,line:0,playing:false,paused:false,plays:{},voiceMap:{},timer:null,tok:0,_spoke:false};
 var fmPrepInt=null, fmSpeakInt=null, fmRec=null;
-function fmDef(skill){ for(var i=0;i<FM_DEFS.length;i++){ if(FM_DEFS[i].skill===skill) return FM_DEFS[i]; } return null; }
+function fmDefsFor(n){ return n===2?FM2_DEFS:FM_DEFS; }
+function fmDef(skill,n){ var defs=fmDefsFor(n); for(var i=0;i<defs.length;i++){ if(defs[i].skill===skill) return defs[i]; } return null; }
+function fmPack(){ var n=fmState&&fmState.mock?fmState.mock:1; return n===2?{listening:FM2_LISTENING,reading:FM2_READING,writing:FM2_WRITING,speaking:FM2_SPEAKING}:{listening:FM_LISTENING,reading:FM_READING,writing:FM_WRITING,speaking:FM_SPEAKING}; }
+function fmMockName(){ var n=fmState&&fmState.mock?fmState.mock:1; return n===2?'Full Mock Test 2':'Full Mock Test 1'; }
 function fmEsc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function fmBandFromRaw(skill,raw){
  var T= skill==='listening' ? [[39,9],[37,8.5],[35,8],[32,7.5],[30,7],[26,6.5],[23,6],[18,5.5],[16,5],[13,4.5],[10,4],[8,3.5],[6,3],[4,2.5]]
@@ -4298,7 +4340,7 @@ function fmRenderAudioBar(i){
 }
 function fmSpeakLine(){
  if(!fmState||fmState.skill!=='listening'||!fmAU.playing) return;
- var s=FM_LISTENING.parts[fmAU.sec]; if(!s) return;
+ var s=fmPack().listening.parts[fmAU.sec]; if(!s) return;
  if(fmAU.line>=s.script.length){ fmAU.playing=false; fmSetStatus(fmAU.sec,'Section '+(fmAU.sec+1)+' finished. '+(fmAU.plays[fmAU.sec]<2?'You may replay it once more.':'Both plays are now used.')); fmRenderAudioBar(fmAU.sec); return; }
  if(!('speechSynthesis' in window)){ fmSetStatus(fmAU.sec,'Speech playback is not available in this browser \u2014 answer the questions, then read the transcript in your review after submitting.'); return; }
  var line=s.script[fmAU.line]; var cfg=fmVoiceFor(line); var myTok=fmAU.tok;
@@ -4340,8 +4382,8 @@ function fmSay(t){
  }catch(e){}
 }
 function fmSayQ(part,i){
- if(part==='p2'){ var c=FM_SPEAKING.cue; fmSay(c.title+'. You should say: '+c.points.join(', ')+'.'); return; }
- var arr=FM_SPEAKING[part]||[]; if(arr[i]) fmSay(arr[i]);
+ if(part==='p2'){ var c=fmPack().speaking.cue; fmSay(c.title+'. You should say: '+c.points.join(', ')+'.'); return; }
+ var arr=fmPack().speaking[part]||[]; if(arr[i]) fmSay(arr[i]);
 }
 /* ---------- question rendering & grading (Listening + Reading) ---------- */
 function fmRenderQ(skill,q){
@@ -4372,7 +4414,7 @@ function fmTextMatch(raw,q){
 }
 function fmAnswerText(q){ return (q.type==='mcq'||q.type==='tfng'||q.type==='select') ? q.options[q.answer] : q.answer; }
 function fmGradeObjective(skill){
- var data= skill==='listening'?FM_LISTENING:FM_READING;
+ var data= skill==='listening'?fmPack().listening:fmPack().reading;
  var correct=0; var perPart=[];
  data.parts.forEach(function(p){
   var pc=0;
@@ -4418,21 +4460,23 @@ function fmSubmitObjective(skill){
   res.scrollIntoView({behavior:'smooth',block:'center'});
  }
  try{ recordAttempt({skill:skill,testId:def.id,title:def.title,scoreStr:'Band '+band.toFixed(1),pct:Math.round(g.correct/total*100),band:band}); }catch(e){}
- try{ pushHistory(capSkill(skill)+' \u2014 Full Mock Test 1','Band '+band.toFixed(1),g.correct+' of '+total+' correct \u2022 '+def.title); }catch(e){}
+ try{ pushHistory(capSkill(skill)+' \u2014 '+fmMockName(),'Band '+band.toFixed(1),g.correct+' of '+total+' correct \u2022 '+def.title); }catch(e){}
  try{ renderFullMock(); }catch(e){}
 }
 /* ---------- opening a full-mock module ---------- */
-function startFullMock(skill){
- if((location.hash||'').indexOf('#/library')===0){ location.hash='#/ielts'; setTimeout(function(){ fmOpen(skill); },160); return; }
- fmOpen(skill);
+function startFullMock(skill,n){
+ var mock=(n===2)?2:1;
+ if((location.hash||'').indexOf('#/library')===0){ location.hash='#/ielts'; setTimeout(function(){ fmOpen(skill,mock); },160); return; }
+ fmOpen(skill,mock);
 }
-function fmOpen(skill){
+function fmOpen(skill,n){
  fmStopAudio();
  if(fmPrepInt){ clearInterval(fmPrepInt); fmPrepInt=null; }
  if(fmSpeakInt){ clearInterval(fmSpeakInt); fmSpeakInt=null; }
  stopPracticeTimers();
- var def=fmDef(skill); if(!def) return;
- fmState={skill:skill,def:def,answers:{},submitted:false};
+ var mock=(n===2)?2:1;
+ var def=fmDef(skill,mock); if(!def) return;
+ fmState={skill:skill,def:def,answers:{},submitted:false,mock:mock};
  fmAU.plays={}; fmAU.sec=-1; fmAU.line=0;
  window._practiceOpen=true;
  var sec=document.getElementById('practice'); if(!sec) return;
@@ -4451,7 +4495,7 @@ function fmOpen(skill){
 }
 function fmRenderListening(){
  var h='<p class="small">The complete Listening paper: four sections, ten questions each. Read the questions for a section first, then press <b>Play</b>. Each speaker has a different voice, as on exam day. In this practice each section can be played <b>twice</b> (in the real exam you hear it once). The transcript stays hidden until you submit \u2014 then it opens under every section.</p>';
- FM_LISTENING.parts.forEach(function(s,si){
+ fmPack().listening.parts.forEach(function(s,si){
   h+='<div class="fm-sec"><h3>'+s.name+' \u2014 '+s.title+'</h3><p class="small" style="margin-top:4px">'+s.intro+'</p>'
    +'<div class="fm-audiobar" id="fmBar-'+si+'"></div><p class="small" id="fmStatus-'+si+'" style="margin-top:6px;min-height:18px;font-weight:600;color:var(--navy)"></p>'
    +(s.map?fmRenderMap(s.map):'')
@@ -4471,7 +4515,7 @@ function fmRenderMap(map){
 }
 function fmRenderReading(){
  var h='<p class="small">The complete Reading paper: three passages, 40 questions, 60 minutes \u2014 exactly the length of the real test. Answers to most question sets follow the order of the passage. When you finish a passage, move on; you can scroll back at any time.</p>';
- FM_READING.parts.forEach(function(p,pi){
+ fmPack().reading.parts.forEach(function(p,pi){
   h+='<div class="fm-sec"><h3>'+p.name+' \u2014 '+p.title+'</h3><p class="small" style="margin-top:4px">'+p.intro+'</p>'
    +'<div class="fm-read-grid"><div class="fm-passage">'+p.paras.map(function(para){ return '<p><b>'+para[0]+'</b>&nbsp;&nbsp;'+para[1]+'</p>'; }).join('')+'</div>'
    +'<div>'+p.questions.map(function(q){ return fmRenderQ('reading',q); }).join('')+'</div></div></div>';
@@ -4691,15 +4735,38 @@ var FM_WRITING={
   model:'It is often argued that governments should pay the full cost of university education so that no student has to pay fees. Personally, I agree with this idea to a large extent, although I believe that some limits are necessary.\n\nThe strongest argument for free university education is equality of opportunity. When fees are high, talented young people from poor families may decide not to apply, or may leave university with heavy debts. This wastes ability that society needs: the doctors, engineers and teachers of the future should be chosen by talent, not by their parents\u2019 income. Countries where public universities charge little or nothing show that a free system can work in practice.\n\nFree education also benefits the whole economy, not just the individual student. Graduates usually earn more, pay more tax and are less likely to need state support. In that sense, the government is not giving money away; it is making an investment that is repaid many times over during each graduate\u2019s working life.\n\nHowever, \u2018free\u2019 education is never truly free \u2014 it is paid for by taxpayers, including many people who never attended university. For this reason, I believe some limits are fair. Places on expensive courses could be limited to the numbers society actually needs, and students who repeatedly fail their exams might reasonably be asked to contribute towards the cost.\n\nIn conclusion, I agree that university education should be free at the point of use, because it is fairer and benefits the entire economy. Nevertheless, governments should control the number of places and the total cost so that the system remains affordable for everyone.',
   modelWhy:'a clear position in the introduction, two fully developed reasons for agreeing, a balanced paragraph of limits, and a conclusion that restates the position \u2014 with topic vocabulary (equality of opportunity, investment, taxpayers) used precisely.'}
 };
+function fmLineChartSVG(lc){
+ var min=0, max=0; lc.series.forEach(function(s){ s.values.forEach(function(v){ if(v>max) max=v; if(v<min) min=v; }); });
+ max=Math.ceil((max+2)/10)*10; if(max<=min) max=min+10;
+ var W=560,H=240,pl=38,pr=12,pt=12,pb=26, iw=W-pl-pr, ih=H-pt-pb;
+ var cols=['#1d4ed8','#0d9488','#b45309','#7c3aed'];
+ var grid=''; var steps=5;
+ for(var gi=0;gi<=steps;gi++){ var yv=min+(max-min)*gi/steps; var gy=pt+ih-(yv-min)/(max-min)*ih; grid+='<line x1="'+pl+'" y1="'+gy+'" x2="'+(W-pr)+'" y2="'+gy+'" stroke="#e2e8f0" stroke-width="1"/><text x="'+(pl-6)+'" y="'+(gy+4)+'" font-size="10" fill="#64748b" text-anchor="end">'+Math.round(yv)+'</text>'; }
+ var xlab=''; lc.years.forEach(function(yr,i){ var x=pl+iw*i/(lc.years.length-1); xlab+='<text x="'+x+'" y="'+(H-8)+'" font-size="10" fill="#64748b" text-anchor="middle">'+yr+'</text>'; });
+ var lines=lc.series.map(function(s,si){ var pts=s.values.map(function(v,i){ return (pl+iw*i/(lc.years.length-1)).toFixed(1)+','+(pt+ih-(v-min)/(max-min)*ih).toFixed(1); }).join(' '); var dots=s.values.map(function(v,i){ return '<circle cx="'+(pl+iw*i/(lc.years.length-1))+'" cy="'+(pt+ih-(v-min)/(max-min)*ih)+'" r="3" fill="'+cols[si%cols.length]+'"/>'; }).join(''); return '<polyline points="'+pts+'" fill="none" stroke="'+cols[si%cols.length]+'" stroke-width="2.4" stroke-linejoin="round"/>'+dots; }).join('');
+ var legend=lc.series.map(function(s,si){ return '<span><i style="background:'+cols[si%cols.length]+'"></i>'+fmEsc(s.name)+'</span>'; }).join('');
+ return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block" role="img" aria-label="'+fmEsc(lc.title||'Line graph')+'">'+grid+xlab+lines+'</svg><div class="fm-legend">'+legend+'</div>';
+}
+function fmTableHTML(tb){
+ var h='<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:13.5px"><thead><tr>'+tb.head.map(function(c){ return '<th style="text-align:left;padding:8px 10px;border-bottom:2px solid var(--line);color:var(--navy)">'+fmEsc(c)+'</th>'; }).join('')+'</tr></thead><tbody>';
+ tb.rows.forEach(function(r){ h+='<tr>'+r.map(function(c,i){ return '<td style="padding:8px 10px;border-bottom:1px solid var(--line);'+(i===0?'font-weight:700;color:var(--navy)':'font-family:\'JetBrains Mono\',monospace')+'">'+fmEsc(c)+'</td>'; }).join('')+'</tr>'; });
+ return h+'</tbody></table></div>'+(tb.note?'<p class="small" style="margin-top:8px">'+tb.note+'</p>':'');
+}
 function fmRenderWriting(){
- var w=FM_WRITING;
- var rows=w.t1.rows.map(function(r){
-  function bar(v,cls,yr){ return '<div class="fm-bar-track"><span class="small" style="width:34px;text-align:right">'+yr+'</span><span class="fm-bar '+cls+'" style="width:'+Math.max(2,Math.round(v/2.2))+'%"></span><span class="fm-bar-val">'+v+',000</span></div>'; }
-  return '<div class="fm-bar-row"><b style="color:var(--navy)">'+r.name+'</b><div>'+bar(r.a,'y10','2010')+bar(r.b,'y20','2020')+'</div></div>';
- }).join('');
+ var w=fmPack().writing;
+ var chartInner;
+ if(w.t1.line){ chartInner=fmLineChartSVG(w.t1.line); }
+ else if(w.t1.table){ chartInner=fmTableHTML(w.t1.table); }
+ else {
+  var rows=w.t1.rows.map(function(r){
+   function bar(v,cls,yr){ return '<div class="fm-bar-track"><span class="small" style="width:34px;text-align:right">'+yr+'</span><span class="fm-bar '+cls+'" style="width:'+Math.max(2,Math.round(v/2.2))+'%"></span><span class="fm-bar-val">'+v+',000</span></div>'; }
+   return '<div class="fm-bar-row"><b style="color:var(--navy)">'+r.name+'</b><div>'+bar(r.a,'y10','2010')+bar(r.b,'y20','2020')+'</div></div>';
+  }).join('');
+  chartInner='<div class="fm-bars">'+rows+'</div><div class="fm-legend"><span><i style="background:#a9c6ef"></i>2010</span><span><i style="background:var(--blue)"></i>2020</span></div>';
+ }
  return '<p class="small">The complete Writing paper: two tasks in 60 minutes, exactly as on exam day. Task 2 carries more weight than Task 1 in the real marking. After you submit, you will receive examiner-style guidance on the four real criteria \u2014 Task Achievement / Response, Coherence &amp; Cohesion, Lexical Resource, and Grammatical Range &amp; Accuracy \u2014 plus model answers for both tasks. In the real exam, human examiners award this score.</p>'
  +'<div class="fm-sec"><h3>'+w.t1.title+'</h3><p style="margin-top:6px;font-style:italic">\u201c'+w.t1.prompt+'\u201d</p><p class="small" style="margin-top:4px">'+w.t1.instruction+'</p>'
- +'<div class="fm-chart"><p style="font-weight:700;color:var(--navy)">'+w.t1.chartTitle+'</p><div class="fm-bars">'+rows+'</div><div class="fm-legend"><span><i style="background:#a9c6ef"></i>2010</span><span><i style="background:var(--blue)"></i>2020</span></div></div>'
+ +'<div class="fm-chart"><p style="font-weight:700;color:var(--navy)">'+w.t1.chartTitle+'</p>'+chartInner+'</div>'
  +'<label style="display:block;font-weight:700;font-family:\'Plus Jakarta Sans\',sans-serif;margin-top:14px">Your Task 1 answer <span class="tag tag-teal" id="fmWC1" style="margin-left:6px">0 words</span></label>'
  +'<textarea id="fmW1" placeholder="Write your report here (at least 150 words)..." oninput="fmCountWords(\'fmW1\',\'fmWC1\')"></textarea></div>'
  +'<div class="fm-sec"><h3>'+w.t2.title+'</h3><p style="margin-top:6px;font-style:italic">\u201c'+w.t2.prompt+'\u201d</p><p class="small" style="margin-top:4px">'+w.t2.instruction+'</p>'
@@ -4753,8 +4820,8 @@ function fmSubmitWriting(){
   res.scrollIntoView({behavior:'smooth',block:'center'});
  }
  t1.disabled=true; t2.disabled=true;
- try{ recordAttempt({skill:'writing',testId:'fm-w1',title:'Full Mock Test 1 \u2014 Writing',scoreStr:'Band '+band.toFixed(1)+' (estimate)',pct:Math.round(band/9*100),band:band}); }catch(e){}
- try{ pushHistory('Writing \u2014 Full Mock Test 1','Band '+band.toFixed(1)+' (estimate)',w1+' + '+w2+' words \u2022 Full Mock Test 1 \u2014 Writing'); }catch(e){}
+ try{ recordAttempt({skill:'writing',testId:fmState.def.id,title:fmState.def.title,scoreStr:'Band '+band.toFixed(1)+' (estimate)',pct:Math.round(band/9*100),band:band}); }catch(e){}
+ try{ pushHistory('Writing \u2014 '+fmMockName(),'Band '+band.toFixed(1)+' (estimate)',w1+' + '+w2+' words \u2022 '+fmState.def.title); }catch(e){}
  try{ renderFullMock(); }catch(e){}
 }
 /* ---------- FULL MOCK 1 — SPEAKING (original Engowra paper) ---------- */
@@ -4763,6 +4830,235 @@ var FM_SPEAKING={
  cue:{title:'Describe a journey that you remember well',points:['where you went','who you were with','what happened during the journey','and explain why you remember this journey so well']},
  p3:['How has the way people travel changed in the last fifty years?','What are the advantages and disadvantages of travelling abroad for a holiday?','Do you think tourism is always good for the places people visit? Why?','In the future, will people travel more or less than they do now?'],
  model:'Part 1 example: \u201cI come from Multan, a city famous for its shrines and its extreme summer heat. What I like most is the old city area, where the streets are narrow, full of small shops, and everybody seems to know each other.\u201d\n\nPart 2 example: \u201cA journey I remember well is the first time I travelled by train to Karachi with my elder brother. I was about fifteen, and the journey took almost twenty hours. We had the lower seats, and for most of the night I stayed awake, watching small dark stations pass by. At one point the train stopped for nearly two hours because of heavy rain, and the passengers came out onto the platform and shared their food with each other. I remember it so well because it was my first long journey away from home, and it made me realise how large and varied my own country is.\u201d\n\nPart 3 example: \u201cTravel has changed enormously in fifty years. Journeys that once took days now take hours, and booking used to mean visiting an office, whereas now it takes a minute on a phone. I think people travel far more than before, but perhaps they pay less attention while they do it.\u201d'
+};
+/* ---------- FULL MOCK 2 — DEFS (original Engowra paper) ---------- */
+var FM2_DEFS=[
+ {id:'fm2-l',skill:'listening',title:'Full Mock Test 2 \u2014 Listening',fmt:'40 questions \u2022 4 sections \u2022 ~30 minutes',mins:30,detail:'A sports-centre booking call, a museum tour with a plan to label, a three-way research-project discussion and a lecture on urban transport \u2014 every speaker has a different voice, exactly as in the real test.'},
+ {id:'fm2-r',skill:'reading',title:'Full Mock Test 2 \u2014 Reading',fmt:'40 questions \u2022 3 passages \u2022 60 minutes',mins:60,detail:'Three full-length passages on sleep and learning, the history of public libraries, and ocean-cleanup technology \u2014 with True / False / Not Given, matching headings, matching information, summary completion and short answers.'},
+ {id:'fm2-w',skill:'writing',title:'Full Mock Test 2 \u2014 Writing',fmt:'Task 1 + Task 2 \u2022 60 minutes',mins:60,detail:'A line-graph report (150+ words) and a discuss-both-views essay (250+ words), marked on the four real criteria, with model answers for both tasks.'},
+ {id:'fm2-s',skill:'speaking',title:'Full Mock Test 2 \u2014 Speaking',fmt:'Parts 1\u20133 \u2022 11\u201314 minutes',mins:14,detail:'The examiner\u2019s questions are spoken aloud. Part 1 interview, a cue card with 1 minute to prepare and 1\u20132 minutes to speak, then a Part 3 discussion.'}
+];
+/* ---------- FULL MOCK 2 — LISTENING (original Engowra paper) ---------- */
+var FM2_LISTENING={parts:[
+{name:'Section 1',title:'Booking a Court at Greenfield Sports Centre',intro:'A conversation between a sports centre receptionist and a customer who wants to book a squash court. Questions 1\u201310: complete the booking form and answer the questions.',
+ script:[
+  {who:'Kate',g:'f',key:'kate',t:'Good morning, Greenfield Sports Centre, Kate speaking. How can I help you?'},
+  {who:'Daniel',g:'m',key:'daniel',t:'Good morning. My name is Daniel Reeves, and I would like to book a squash court, please.'},
+  {who:'Kate',g:'f',key:'kate',t:'Of course, Mr Reeves. Just to confirm the spelling: R-E-E-V-E-S?'},
+  {who:'Daniel',g:'m',key:'daniel',t:'That is right.'},
+  {who:'Kate',g:'f',key:'kate',t:'Thank you. And could I take a contact phone number, in case we need to reach you?'},
+  {who:'Daniel',g:'m',key:'daniel',t:'Yes, it is 07855 304 219.'},
+  {who:'Kate',g:'f',key:'kate',t:'Thank you. Now, which day would you like to play?'},
+  {who:'Daniel',g:'m',key:'daniel',t:'Saturday morning, if there is a court free.'},
+  {who:'Kate',g:'f',key:'kate',t:'Let me check. On Saturday we have one court at nine o\u2019clock, which is quite early, and another at eleven thirty.'},
+  {who:'Daniel',g:'m',key:'daniel',t:'Nine is too early for us. I will take the eleven thirty court, please.'},
+  {who:'Kate',g:'f',key:'kate',t:'Eleven thirty on Saturday. And for how long? Most people book one hour, but you can book ninety minutes if you prefer.'},
+  {who:'Daniel',g:'m',key:'daniel',t:'Ninety minutes, please. We are playing a proper match, so an hour is not long enough.'},
+  {who:'Kate',g:'f',key:'kate',t:'That is fine. How many players will there be?'},
+  {who:'Daniel',g:'m',key:'daniel',t:'Just two of us: myself and my brother.'},
+  {who:'Kate',g:'f',key:'kate',t:'Do either of you need to hire a racket?'},
+  {who:'Daniel',g:'m',key:'daniel',t:'I have my own, but my brother will need one. How much is racket hire?'},
+  {who:'Kate',g:'f',key:'kate',t:'Racket hire is three pounds. Now, are you a member of the centre? Members pay eight pounds an hour for a court, but non-members pay twelve pounds an hour.'},
+  {who:'Daniel',g:'m',key:'daniel',t:'I am not a member yet, so I will pay the twelve pounds. What about parking on a Saturday? Is it easy?'},
+  {who:'Kate',g:'f',key:'kate',t:'Our own car park is free, but it is usually full by ten o\u2019clock. Most players park behind the library, just across the road.'},
+  {who:'Daniel',g:'m',key:'daniel',t:'Good to know. Is there anything else I should bring?'},
+  {who:'Kate',g:'f',key:'kate',t:'Yes: you must wear indoor shoes with non-marking soles. You cannot play in shoes you have worn outside. And please arrive ten minutes before your booking, so you can collect the court key from reception.'},
+  {who:'Daniel',g:'m',key:'daniel',t:'That is great. Thank you for your help.'},
+  {who:'Kate',g:'f',key:'kate',t:'You are welcome, Mr Reeves. See you on Saturday.'}
+ ],
+ questions:[
+  {n:1,type:'fill',q:'Booking form \u2014 Surname: ______',note:'Write ONE WORD ONLY.',answer:'Reeves',accept:['reeves'],why:'Kate confirms the spelling: \u201cR-E-E-V-E-S\u201d \u2014 Reeves. In Section 1, always listen for spellings; they signal a form answer.'},
+  {n:2,type:'fill',q:'Contact phone number: ______',note:'Write the number you hear.',answer:'07855 304 219',accept:['07855304219','07855 304 219','07855 304219'],why:'Daniel gives his number digit by digit: \u201c07855 304 219\u201d. Write the groups exactly as you hear them.'},
+  {n:3,type:'fill',q:'Day of the booking: ______',note:'Write ONE WORD.',answer:'Saturday',accept:['saturday','saturday morning'],why:'Daniel asks for \u201cSaturday morning, if there is a court free\u201d, and Kate books it for Saturday.'},
+  {n:4,type:'fill',q:'Court time booked: ______',note:'Write the time, e.g. 11:30.',answer:'11:30',accept:['11:30','11.30','11 30','eleven thirty','11:30 am','1130'],why:'Two times are offered \u2014 nine o\u2019clock and eleven thirty. Daniel rejects nine as \u201ctoo early\u201d and takes \u201cthe eleven thirty court\u201d.'},
+  {n:5,type:'mcq',q:'Who is Daniel going to play with?',options:['His brother','A work colleague','A friend from university'],answer:0,why:'Daniel says: \u201cJust two of us: myself and my brother.\u201d No colleague or friend is mentioned.'},
+  {n:6,type:'fill',q:'Racket hire costs \u00a3______.',note:'Write a number or a word.',answer:'3',accept:['3','\u00a33','three','three pounds','3 pounds'],why:'Kate says: \u201cRacket hire is three pounds.\u201d The eight and twelve pound figures are court prices \u2014 distractors.'},
+  {n:7,type:'fill',q:'As a non-member, Daniel will pay \u00a3______ per hour for the court.',note:'Write a number or a word.',answer:'12',accept:['12','\u00a312','twelve','twelve pounds','12 pounds'],why:'Members pay \u00a38, but \u201cnon-members pay twelve pounds an hour\u201d, and Daniel confirms: \u201cI will pay the twelve pounds.\u201d'},
+  {n:8,type:'fill',q:'If the centre car park is full, Daniel can park behind the ______.',note:'Write ONE WORD.',answer:'library',accept:['library','the library'],why:'Kate says most players \u201cpark behind the library, just across the road\u201d because the centre car park fills by ten.'},
+  {n:9,type:'mcq',q:'What kind of shoes must the players wear?',options:['Shoes worn only outdoors','Indoor shoes with non-marking soles','Any comfortable trainers'],answer:1,why:'Kate: \u201cYou must wear indoor shoes with non-marking soles. You cannot play in shoes you have worn outside.\u201d Outdoor shoes are forbidden, not required.'},
+  {n:10,type:'fill',q:'Daniel should arrive ______ minutes before his booking.',note:'Write a number or a word.',answer:'10',accept:['10','ten','10 minutes','ten minutes'],why:'Kate asks him to \u201carrive ten minutes before your booking\u201d to collect the court key from reception.'}
+ ]},
+{name:'Section 2',title:'Welcome to the City Transport Museum',intro:'A guide speaks to a group of visitors at a museum. Questions 11\u201315: label the plan. Questions 16\u201320: answer the questions.',
+ script:[
+  {who:'Sophie',g:'f',key:'sophie',t:'Good morning, everyone, and welcome to the City Transport Museum. My name is Sophie, and I will be your guide this morning. Before we go in, let me explain the plan of the museum, which you can see on the board beside me.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'We are standing at the main entrance, at the bottom of the plan. Straight ahead of you, in the centre of the building, is the Caf\u00e9, with tables and chairs where you can rest during your visit.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'Now, on your left, on the west side of the building, the first room you reach is the Discovery Zone. This is our hands-on area for children, full of games and things to touch, so families usually start there.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'Above the Discovery Zone, in the north-west corner of the plan, is the Model Railway Room, with rows and rows of model trains running through tiny towns.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'Next to it, in the centre of the top row, is our largest room, the Engine Hall. It is full of real vehicles: old buses, trams, and one enormous steam engine.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'In the north-east corner, at the top right of your plan, is the Cinema, where we show old transport films. Today\u2019s film, at two o\u2019clock, is free for all visitors.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'Coming down the east side, below the Cinema, you will find the Museum Shop, with shelves full of gifts, books and toy buses. It is a good place to end your visit.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'In the south-east corner, next to the main entrance, is the Library, a quiet room with book-lined walls, where you can read about the history of transport in our city.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'And finally, in the south-west corner, is the Education Room, with desks and maps. That is where school groups meet their guides, and where our talks for adults are held.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'A little history before we start. This building was opened in 1898, not as a museum, but as a tram depot, where the city\u2019s trams were kept at night. It became a museum exactly one hundred years later. Today we have more than two hundred vehicles in our collection.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'Two practical points. First, the museum closes at five o\u2019clock today, one hour earlier than usual, because there is a private event this evening. Second, do not miss the steam engine demonstration at twelve thirty, when our engineers start the great engine in the Engine Hall.'},
+  {who:'Sophie',g:'f',key:'sophie',t:'Right, if you are ready, let us begin in the Discovery Zone.'}
+ ],
+ map:{title:'Plan of the City Transport Museum',cells:[
+   [{letter:'A',cue:'rows of model trains'},{letter:'B',cue:'large old vehicles'},{letter:'C',cue:'film posters and rows of seats'}],
+   [{letter:'D',cue:'hands-on games area'},{letter:'E',cue:'tables and chairs'},{letter:'F',cue:'shelves with gifts'}],
+   [{letter:'G',cue:'desks and maps'},{start:true,label:'MAIN ENTRANCE \u2014 start here'},{letter:'H',cue:'book-lined walls'}]
+ ]},
+ questions:[
+  {n:11,type:'select',q:'Label the plan: the Engine Hall',note:'Choose a letter A\u2013H from the plan.',options:['A','B','C','D','E','F','G','H'],answer:1,why:'The Engine Hall is \u201cin the centre of the top row\u201d and \u201cfull of real vehicles\u201d \u2014 the large old vehicles, letter B.'},
+  {n:12,type:'select',q:'Label the plan: the Caf\u00e9',note:'Choose a letter A\u2013H from the plan.',options:['A','B','C','D','E','F','G','H'],answer:4,why:'The Caf\u00e9 is \u201cstraight ahead of you, in the centre of the building\u201d, with tables and chairs \u2014 letter E.'},
+  {n:13,type:'select',q:'Label the plan: the Museum Shop',note:'Choose a letter A\u2013H from the plan.',options:['A','B','C','D','E','F','G','H'],answer:5,why:'The shop is \u201con the east side, below the Cinema\u201d, with shelves of gifts \u2014 letter F.'},
+  {n:14,type:'select',q:'Label the plan: the Cinema',note:'Choose a letter A\u2013H from the plan.',options:['A','B','C','D','E','F','G','H'],answer:2,why:'The Cinema is \u201cin the north-east corner, at the top right\u201d \u2014 film posters and rows of seats, letter C.'},
+  {n:15,type:'select',q:'Label the plan: the Discovery Zone',note:'Choose a letter A\u2013H from the plan.',options:['A','B','C','D','E','F','G','H'],answer:3,why:'The Discovery Zone is \u201cthe first room you reach\u201d on the west side \u2014 the hands-on games area, letter D.'},
+  {n:16,type:'mcq',q:'What was the museum building used as when it first opened in 1898?',options:['A railway station','A tram depot','A bus factory'],answer:1,why:'Sophie explains it \u201cwas opened in 1898, not as a museum, but as a tram depot, where the city\u2019s trams were kept at night\u201d.'},
+  {n:17,type:'mcq',q:'Why does the museum close at five o\u2019clock today?',options:['The staff finish early on Fridays','A private event is being held in the evening','The steam engine needs repairs'],answer:1,why:'It closes \u201cone hour earlier than usual, because there is a private event this evening\u201d. The day of the week is never given.'},
+  {n:18,type:'mcq',q:'What can visitors do free of charge today?',options:['Watch the afternoon film','Use the Museum Library','Join the guided tour at noon'],answer:0,why:'Sophie says: \u201cToday\u2019s film, at two o\u2019clock, is free for all visitors.\u201d No free library use or noon tour is mentioned.'},
+  {n:19,type:'fill',q:'The museum collection contains more than ______ vehicles.',note:'Write a number or words.',answer:'200',accept:['200','two hundred','over 200','more than 200'],why:'\u201cToday we have more than two hundred vehicles in our collection.\u201d'},
+  {n:20,type:'fill',q:'The steam engine demonstration starts at ______.',note:'Write the time, e.g. 12:30.',answer:'12:30',accept:['12:30','12.30','12 30','twelve thirty','12:30 pm'],why:'Sophie tells visitors not to miss \u201cthe steam engine demonstration at twelve thirty\u201d in the Engine Hall.'}
+ ]},
+{name:'Section 3',title:'A Research Project on Coffee Shops',intro:'A tutor discusses a research project with two students, Lucy and Marco. Questions 21\u201325: match each task to the right person. Questions 26\u201330: answer the questions.',
+ script:[
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'Lucy, Marco, come in. Today we need to agree on your research project for this term. Have you chosen a topic?'},
+  {who:'Lucy',g:'f',key:'lucy',t:'Yes. Our town centre has five big coffee-shop chains, but the small independent coffee shops are still busy. We want to find out why the independent shops survive next to the big chains.'},
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'An interesting question. How were you planning to collect your information?'},
+  {who:'Marco',g:'m',key:'marco',t:'At first we wanted to interview two hundred customers in the street, but you told us last week that would be too many to analyse in four weeks.'},
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'That\u2019s right. Two hundred interviews is a book, not a student project. What is the new plan?'},
+  {who:'Lucy',g:'f',key:'lucy',t:'We\u2019ll give a short questionnaire to customers in three independent coffee shops \u2014 about eighty people in total. And we\u2019ll also interview the managers of those shops.'},
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'Good. Remember: before you record any interview, you must have written permission from the manager. No permission, no recording.'},
+  {who:'Marco',g:'m',key:'marco',t:'Understood. How many managers are there? Each shop has one manager, so\u2026 three in total? Actually, two of the shops have a second branch, so we can interview six managers if they agree.'},
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'Six is a good number for a project like this. Now let\u2019s divide the work. Who will design the questionnaire?'},
+  {who:'Lucy',g:'f',key:'lucy',t:'I will. I took the survey design course last term, so I know how to write questions that do not push people to one answer.'},
+  {who:'Marco',g:'m',key:'marco',t:'And I will interview the managers. I worked in a coffee shop for two years, so I know the questions managers are usually happy to answer.'},
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'And the numbers? Eighty questionnaires will produce a lot of data.'},
+  {who:'Marco',g:'m',key:'marco',t:'I am quite confident with statistics software, so I will analyse the questionnaire data and make the tables.'},
+  {who:'Lucy',g:'f',key:'lucy',t:'Then I will write the introduction, because I have already read three articles about small shops and big brands.'},
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'Excellent. And the presentation at the end?'},
+  {who:'Lucy',g:'f',key:'lucy',t:'We will prepare the slides together, the weekend before the presentation.'},
+  {who:'Dr Ahmad',g:'m',key:'ahmad',t:'Perfect. One last thing: keep every questionnaire. Your tutor may ask to see the original answers, so do not throw anything away. Good luck, both of you.'}
+ ],
+ questions:[
+  {n:21,type:'select',q:'Who will design the customer questionnaire?',note:'Choose the correct person.',options:['Lucy','Marco','Both students together'],answer:0,why:'Lucy: \u201cI will. I took the survey design course last term, so I know how to write questions that do not push people to one answer.\u201d'},
+  {n:22,type:'select',q:'Who will interview the shop managers?',note:'Choose the correct person.',options:['Lucy','Marco','Both students together'],answer:1,why:'Marco: \u201cI will interview the managers. I worked in a coffee shop for two years.\u201d'},
+  {n:23,type:'select',q:'Who will analyse the questionnaire data?',note:'Choose the correct person.',options:['Lucy','Marco','Both students together'],answer:1,why:'Marco says he is \u201cquite confident with statistics software, so I will analyse the questionnaire data and make the tables\u201d.'},
+  {n:24,type:'select',q:'Who will write the introduction?',note:'Choose the correct person.',options:['Lucy','Marco','Both students together'],answer:0,why:'Lucy: \u201cI will write the introduction, because I have already read three articles about small shops and big brands.\u201d'},
+  {n:25,type:'select',q:'Who will prepare the presentation slides?',note:'Choose the correct person.',options:['Lucy','Marco','Both students together'],answer:2,why:'Lucy says: \u201cWe will prepare the slides together, the weekend before the presentation.\u201d'},
+  {n:26,type:'mcq',q:'The students\u2019 research question is about\u2026',options:['how coffee shops choose their prices','why small coffee shops survive beside big chains','where new coffee shops should open'],answer:1,why:'Lucy: \u201cWe want to find out why the independent shops survive next to the big chains.\u201d Prices and locations are never the question.'},
+  {n:27,type:'mcq',q:'Why did the students drop their first data-collection plan?',options:['It would produce too much data to analyse in time','The coffee shops refused to help','The tutor dislikes street interviews'],answer:0,why:'Two hundred interviews were \u201ctoo many to analyse in four weeks\u201d \u2014 a book, not a student project. Nobody refused; the shops were not even asked yet.'},
+  {n:28,type:'mcq',q:'Before recording a manager, the students must\u2026',options:['pay a small fee to the shop','get written permission from the manager','finish the questionnaire first'],answer:1,why:'Dr Ahmad: \u201cBefore you record any interview, you must have written permission from the manager. No permission, no recording.\u201d'},
+  {n:29,type:'fill',q:'In total, the students hope to interview ______ managers.',note:'Write a number or a word.',answer:'6',accept:['6','six','six managers'],why:'Three shops plus second branches: Marco works out \u201cwe can interview six managers if they agree\u201d, and Dr Ahmad agrees: \u201cSix is a good number.\u201d'},
+  {n:30,type:'mcq',q:'What must the students do with the completed questionnaires?',options:['Keep them, because the tutor may ask to see the originals','Destroy them after the data is entered','Send them to the coffee shops'],answer:0,why:'Dr Ahmad: \u201cKeep every questionnaire. Your tutor may ask to see the original answers, so do not throw anything away.\u201d'}
+ ]},
+{name:'Section 4',title:'How Cities Move: A Short History of Urban Transport',intro:'Part of a university lecture on the history and future of transport in cities. Questions 31\u201340: complete the lecture notes.',
+ script:[
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'Good morning. Today I want to trace how people have moved around cities, from walking to driverless cars, and to ask what comes next.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'Two hundred years ago, cities were small enough to cross on foot, and in 1900 the great majority of urban journeys were still made on foot. The rich rode in horse-drawn carriages, but for most people, the city was a walking city.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'The first transport revolution came with the railway. In 1863, London opened the world\u2019s first underground railway. It was dirty and crowded \u2014 the trains were pulled by steam engines \u2014 but it carried thousands of passengers a day, and every great city soon copied it.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'Then came the motor bus and, above all, the private car. By the 1950s, the car had become the main form of transport in most Western cities. Roads were widened, city centres were cut apart by motorways, and public transport entered a long decline.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'The price of that freedom was congestion. Cities began to fight back. Singapore introduced the world\u2019s first congestion charge in 1975: drivers paid to enter the centre, and traffic fell by around fifteen per cent almost at once.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'Buses were given a second chance with bus lanes. A single bus can carry as many people as forty cars, so where buses have their own lanes, they suddenly become the fastest way to travel through a crowded city.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'Cycling has returned too. Cities such as Amsterdam and Copenhagen show that when you build protected cycle lanes, ordinary people \u2014 not only sports cyclists \u2014 will ride to work in large numbers.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'Technology is changing habits again. Passengers now check their bus\u2019s arrival time on a phone app before they leave home, so waiting feels shorter. And driverless cars are already tested on real streets. They may reduce accidents one day, though at the moment many people say they simply do not trust them.'},
+  {who:'Dr Osborne',g:'m',key:'osborne',t:'So what is the lesson of two hundred years? No single invention has ever solved city transport. The cities that move best combine good public transport, safe cycling, and pleasant streets for walking. Next week, we shall look at how one city redesigned itself around the bicycle. Thank you.'}
+ ],
+ questions:[
+  {n:31,type:'fill',q:'Lecture notes: In 1900, the great majority of city journeys were made on ______.',note:'Write ONE WORD.',answer:'foot',accept:['foot','on foot'],why:'\u201cIn 1900 the great majority of urban journeys were still made on foot.\u201d Carriages belonged to the rich \u2014 a distractor for the majority.'},
+  {n:32,type:'fill',q:'The world\u2019s first underground railway opened in ______ in 1863.',note:'Write ONE WORD.',answer:'London',accept:['london'],why:'\u201cIn 1863, London opened the world\u2019s first underground railway.\u201d The date is given in the question; the city is the answer.'},
+  {n:33,type:'fill',q:'By the 1950s, the main form of transport in most Western cities was the ______.',note:'Write ONE OR TWO WORDS.',answer:'car',accept:['car','private car','the car'],why:'\u201cBy the 1950s, the car had become the main form of transport in most Western cities.\u201d'},
+  {n:34,type:'fill',q:'The first congestion charge was introduced in ______ in 1975.',note:'Write ONE WORD.',answer:'Singapore',accept:['singapore'],why:'\u201cSingapore introduced the world\u2019s first congestion charge in 1975.\u201d'},
+  {n:35,type:'fill',q:'After the charge began, traffic in the city centre fell by around ______ per cent.',note:'Write a number or words.',answer:'15',accept:['15','fifteen','15%','15 per cent','fifteen per cent'],why:'Drivers paid to enter the centre, \u201cand traffic fell by around fifteen per cent almost at once\u201d.'},
+  {n:36,type:'fill',q:'One bus can carry as many people as ______ cars.',note:'Write a number or a word.',answer:'40',accept:['40','forty'],why:'\u201cA single bus can carry as many people as forty cars\u201d \u2014 which is why bus lanes work.'},
+  {n:37,type:'fill',q:'Cities encourage cycling by building protected cycle ______.',note:'Write ONE WORD.',answer:'lanes',accept:['lanes','cycle lanes','paths','tracks'],why:'\u201cWhen you build protected cycle lanes, ordinary people will ride to work in large numbers.\u201d'},
+  {n:38,type:'fill',q:'Passengers can check a bus\u2019s ______ time on a phone app.',note:'Write ONE WORD.',answer:'arrival',accept:['arrival','arrival time'],why:'\u201cPassengers now check their bus\u2019s arrival time on a phone app before they leave home.\u201d'},
+  {n:39,type:'fill',q:'Many people say they do not ______ driverless cars yet.',note:'Write ONE WORD.',answer:'trust',accept:['trust'],why:'Driverless cars \u201cmay reduce accidents one day, though at the moment many people say they simply do not trust them\u201d.'},
+  {n:40,type:'fill',q:'The best cities combine public transport, safe cycling and pleasant streets for ______.',note:'Write ONE WORD.',answer:'walking',accept:['walking','walkers','pedestrians'],why:'The conclusion: the best cities \u201ccombine good public transport, safe cycling, and pleasant streets for walking\u201d.'}
+ ]}
+]};
+/* ---------- FULL MOCK 2 — READING (original Engowra paper) ---------- */
+var FM2_READING={parts:[
+{name:'Passage 1',title:'Sleep Well, Learn Well',intro:'Questions 1\u20136: choose the correct heading for paragraphs A\u2013F. Questions 7\u201310: True / False / Not Given. Questions 11\u201312: multiple choice. Question 13: sentence completion.',
+ paras:[
+  ['A','For most of human history, sleep was treated as a kind of nothing: the dead hours between one useful day and the next. Even today, students boast about how little they sleep before an examination, as if tiredness were a badge of effort. The night before a test is, for many, a marathon of coffee and revision, and sleep is the first sacrifice. Yet over the past thirty years, laboratory research has produced a conclusion that reverses this old thinking. Sleep, it turns out, is not the opposite of learning. It is one of the most important parts of it, and the student who sleeps is not being lazy \u2014 the sleeping brain is working on exactly the material the student was studying the evening before.'],
+  ['B','The key process is known as consolidation. When we learn something new \u2014 a list of foreign words, the steps of a dance, the rules of a new game \u2014 the memory is at first fragile and easily destroyed. During sleep, however, the brain replays the day\u2019s new material. Recordings from the brains of sleeping animals show the same patterns of activity repeating that were present during learning, like a film being shown again to an empty cinema. While this replay happens, the memory is gradually moved from a temporary store into long-term storage, where it becomes stable and much harder to forget. Wakefulness, by contrast, constantly floods the brain with new impressions that compete with the fragile new memory.'],
+  ['C','Experiments have tested this idea directly. In one widely reported study, two groups of students learned a list of new words in the evening. One group then slept for eight hours, while the other group stayed awake all night. When both groups were tested the following day, the students who had slept remembered significantly more of the words. Other experiments have shown that the benefit does not require a full night: learners who took a nap of around ninety minutes after a study session remembered more a week later than learners who had stayed awake, even though both groups had spent exactly the same time studying. Sleep, in other words, does not merely protect memories from being forgotten. It actively strengthens them.'],
+  ['D','Sleep is not one single state, and different kinds of sleep appear to serve different kinds of learning. The first part of the night is dominated by deep sleep, and this stage seems especially important for fixing facts: names, dates, vocabulary and other material that can be stated in words. Later in the night, a lighter, dream-filled stage called REM sleep becomes more common. REM sleep appears to help the brain handle skills and patterns \u2014 how to play a passage of music, how to solve a certain type of problem \u2014 and to calm the emotional charge of difficult experiences. This division of labour explains a practical point: cutting the night short by waking very early removes a large share of REM sleep, while going to bed very late steals the deep sleep of the early hours.'],
+  ['E','Modern life attacks sleep from several directions at once. The blue light from phones, tablets and laptops tells the brain that it is still daytime and delays the release of melatonin, the chemical that makes us sleepy, so students scrolling in bed fall asleep later than they intend. Caffeine is another quiet thief: coffee drunk in the late afternoon is still active in the body at midnight. The timing problem is made worse by biology. In teenagers, the body clock naturally shifts later, so many do not feel sleepy until eleven at night or even later \u2014 yet they must still wake at six or seven for school, losing precisely the REM-rich sleep they need most.'],
+  ['F','Some schools have begun to respond. A number of secondary schools in Britain and the United States have moved the start of the school day from eight o\u2019clock to eight forty-five or later, so that teenagers can sleep closer to their natural rhythm. The reported results are consistent: attendance improves, examination results rise, and in one American study, the number of car accidents involving teenage drivers fell noticeably. Universities have joined in more quietly, offering sleep workshops to first-year students and warning them that the all-night revision session is a poor bargain: an extra hour of tired reading is bought with the loss of the very process that would have stored the material.'],
+  ['G','None of this means that effort is unnecessary, or that a student can sleep through the term and wake up educated. Sleep consolidates what study has provided; it cannot invent knowledge that was never learned in the first place. The lesson of the research is rather about order and respect. Study, then sleep, is a partnership, and treating the second half of that partnership as optional is like writing a letter and never posting it. The examined life, it seems, begins the night before.']
+ ],
+ questions:[
+  {n:1,type:'select',q:'Paragraph A \u2014 choose the correct heading.',note:'Headings list i\u2013ix applies to Questions 1\u20136.',options:['i. The brain at work while the body rests','ii. Different sleep for different kinds of learning','iii. Experiments that compare sleeping and sleepless students','iv. Modern habits that keep students awake','v. Changing the school day to fit the teenage brain','vi. An old idea: sleep as wasted time','vii. Why dreams cannot be trusted','viii. The hidden chemistry of coffee','ix. How to remember a shopping list'],answer:5,why:'Paragraph A describes the old view \u2014 sleep treated as \u201ca kind of nothing\u201d and sacrificed before exams \u2014 before the research reversed it: sleep as wasted time.'},
+  {n:2,type:'select',q:'Paragraph B \u2014 choose the correct heading.',options:['i. The brain at work while the body rests','ii. Different sleep for different kinds of learning','iii. Experiments that compare sleeping and sleepless students','iv. Modern habits that keep students awake','v. Changing the school day to fit the teenage brain','vi. An old idea: sleep as wasted time','vii. Why dreams cannot be trusted','viii. The hidden chemistry of coffee','ix. How to remember a shopping list'],answer:0,why:'Paragraph B explains consolidation: during sleep the brain \u201creplays the day\u2019s new material\u201d and moves it into long-term storage \u2014 the brain is at work while the body rests.'},
+  {n:3,type:'select',q:'Paragraph C \u2014 choose the correct heading.',options:['i. The brain at work while the body rests','ii. Different sleep for different kinds of learning','iii. Experiments that compare sleeping and sleepless students','iv. Modern habits that keep students awake','v. Changing the school day to fit the teenage brain','vi. An old idea: sleep as wasted time','vii. Why dreams cannot be trusted','viii. The hidden chemistry of coffee','ix. How to remember a shopping list'],answer:2,why:'Paragraph C reports controlled studies \u2014 students who slept eight hours versus students who stayed awake all night \u2014 experiments comparing sleeping and sleepless students.'},
+  {n:4,type:'select',q:'Paragraph D \u2014 choose the correct heading.',options:['i. The brain at work while the body rests','ii. Different sleep for different kinds of learning','iii. Experiments that compare sleeping and sleepless students','iv. Modern habits that keep students awake','v. Changing the school day to fit the teenage brain','vi. An old idea: sleep as wasted time','vii. Why dreams cannot be trusted','viii. The hidden chemistry of coffee','ix. How to remember a shopping list'],answer:1,why:'Paragraph D contrasts deep sleep (facts) with REM sleep (skills, patterns, emotions) \u2014 different sleep for different kinds of learning.'},
+  {n:5,type:'select',q:'Paragraph E \u2014 choose the correct heading.',options:['i. The brain at work while the body rests','ii. Different sleep for different kinds of learning','iii. Experiments that compare sleeping and sleepless students','iv. Modern habits that keep students awake','v. Changing the school day to fit the teenage brain','vi. An old idea: sleep as wasted time','vii. Why dreams cannot be trusted','viii. The hidden chemistry of coffee','ix. How to remember a shopping list'],answer:3,why:'Paragraph E lists blue light, late caffeine and the shifted teenage body clock \u2014 modern habits that keep students awake.'},
+  {n:6,type:'select',q:'Paragraph F \u2014 choose the correct heading.',options:['i. The brain at work while the body rests','ii. Different sleep for different kinds of learning','iii. Experiments that compare sleeping and sleepless students','iv. Modern habits that keep students awake','v. Changing the school day to fit the teenage brain','vi. An old idea: sleep as wasted time','vii. Why dreams cannot be trusted','viii. The hidden chemistry of coffee','ix. How to remember a shopping list'],answer:4,why:'Paragraph F is about schools moving the start of the day later so teenagers can sleep \u201ccloser to their natural rhythm\u201d \u2014 changing the school day to fit the teenage brain.'},
+  {n:7,type:'tfng',q:'In the experiments described, students who slept after learning remembered more than students who stayed awake.',options:['True','False','Not Given'],answer:0,why:'TRUE \u2014 Paragraph C: the group that slept eight hours \u201cremembered significantly more of the words\u201d than the group that stayed awake.'},
+  {n:8,type:'tfng',q:'Deep sleep is the stage that mainly helps people learn physical skills such as playing an instrument.',options:['True','False','Not Given'],answer:1,why:'FALSE \u2014 Paragraph D: deep sleep fixes facts; it is REM sleep that \u201chelps the brain handle skills and patterns \u2014 how to play a passage of music\u201d.'},
+  {n:9,type:'tfng',q:'Teenagers\u2019 body clocks make many of them feel sleepy later at night than adults.',options:['True','False','Not Given'],answer:0,why:'TRUE \u2014 Paragraph E: \u201cIn teenagers, the body clock naturally shifts later, so many do not feel sleepy until eleven at night or even later.\u201d'},
+  {n:10,type:'tfng',q:'Most parents support the decision to start the school day later.',options:['True','False','Not Given'],answer:2,why:'NOT GIVEN \u2014 Paragraph F reports results for attendance, examinations and accidents, but never mentions what parents think. If the passage is silent, the answer is Not Given.'},
+  {n:11,type:'mcq',q:'During consolidation, the sleeping brain\u2026',options:['rests completely in order to save energy','repeats new material and moves it into long-term memory','forgets the least useful information first'],answer:1,why:'Paragraph B: the brain \u201creplays the day\u2019s new material\u201d while \u201cthe memory is gradually moved from a temporary store into long-term storage\u201d. The sleeping brain is active, not resting.'},
+  {n:12,type:'mcq',q:'According to Paragraph E, blue light from screens\u2026',options:['delays the release of the chemical that makes us sleepy','damages the eyes of heavy users','makes students fall asleep earlier than intended'],answer:0,why:'Blue light \u201ctells the brain that it is still daytime and delays the release of melatonin, the chemical that makes us sleepy\u201d. Eye damage is never mentioned, and the effect is later sleep, not earlier.'},
+  {n:13,type:'fill',q:'Sentence completion: Schools that moved their start time later reported better ______ among students.',note:'Write ONE WORD from the passage.',answer:'attendance',accept:['attendance'],why:'Paragraph F: after the later start, \u201cattendance improves, examination results rise\u201d \u2014 attendance is the first, and the completion the question asks for.'}
+ ]},
+{name:'Passage 2',title:'From Locked Cupboards to Open Shelves: A History of Public Libraries',intro:'Questions 14\u201317: matching information. Questions 18\u201319: multiple choice. Questions 20\u201322: True / False / Not Given. Questions 23\u201325: summary completion (choose ONE word from the box for each blank: taxes \u2022 subscribers \u2022 chains \u2022 counters \u2022 shelves \u2022 vans \u2014 each word is used once only). Question 26: short answer.',
+ paras:[
+  ['A','The oldest libraries were not public at all. In the ancient world, collections of clay tablets and scrolls belonged to kings, temples and the small circle of scholars who served them. The most famous of all, the library at Alexandria in Egypt, gathered scrolls from across the known world, but its reading rooms were open only to the scholars attached to the royal court. For ordinary people, books \u2014 handmade, rare and expensive \u2014 were effectively out of reach. A single handwritten volume could cost as much as a house, and the few copies that existed were kept in chains precisely because they were worth stealing. Knowledge was guarded in the same way as treasure, and for much the same reason: it was a form of power, and those who held it were in no hurry to share it with the crowd outside the palace walls.'],
+  ['B','The first libraries that ordinary people could use at all were businesses. In the eighteenth century, subscription libraries spread through British and American towns: members paid a yearly fee, and in return could borrow from a few hundred or thousand volumes. Workers\u2019 institutes and mechanics\u2019 libraries followed, offering technical books to craftsmen who wanted to improve themselves. These collections were a real advance, but the fee, however small, kept out the poorest readers \u2014 the very people, reformers argued, who had most to gain from free books.'],
+  ['C','The breakthrough came in 1850, when the British Parliament passed the Public Libraries Act. For the first time, towns were allowed to spend a small amount of local tax money on a library that anyone could use free of charge. The first of the new libraries opened in Manchester in 1852. By modern standards they were severe places. Books were kept behind counters, and readers had to ask staff to fetch each volume; in some libraries the books were still fastened with chains, as they had been in medieval times. Novels were viewed with suspicion, and many early libraries refused to stock fiction at all, on the grounds that ratepayers\u2019 money should buy only improving works.'],
+  ['D','The public library idea received its greatest push from one very rich man. Andrew Carnegie had grown up poor in Scotland, educated himself in a borrowed-book library, and made one of the largest fortunes in American industry. Convinced that free books were the surest ladder by which a poor person could climb, he spent the last part of his life paying for library buildings. By the time of his death, Carnegie money had built more than two thousand five hundred libraries across the English-speaking world \u2014 on one condition. The town had to provide the site, the books and the staff, and keep the library free to all.'],
+  ['E','The twentieth century quietly transformed the inside of the library. The counters came down and open shelves replaced them, so that readers could, for the first time, browse and choose books with their own hands. Children, once turned away or confined to a corner, were given bright rooms and story hours of their own. The change sounds small, but it altered the relationship between reader and book: choosing for yourself, rather than naming a title to a clerk, turned borrowing into browsing, and browsing is how readers discover books they did not know they wanted. Librarians, freed from fetching, became advisers instead of guards. And the library learned to travel: mobile libraries \u2014 vans fitted with shelves \u2014 began carrying books to villages, schools and housing estates that had no library building of their own, parking for an hour or two and lending to queues of readers. In wartime, many libraries stayed open through air raids, offering not only books but news, warmth and a sense of ordinary life continuing. By the 1950s, in many countries the public library had become as ordinary a part of a town as its school or its post office, and a library card was one of the first official documents a child ever owned.'],
+  ['F','Predicting the death of the public library has become a regular sport since the arrival of the internet, yet the buildings remain stubbornly busy. The modern public library lends e-books and audiobooks as well as printed ones; it provides free internet access to people who have none at home; it hosts language classes, job clubs, homework help and a warm, free seat for anyone who needs one. Book loans in many countries are lower than they were in 1950, but the library\u2019s second career \u2014 as the living room of the community \u2014 has made it more, not less, necessary. During cold winters and heat waves alike, the reading room is often the only public indoor space that asks nothing of the people who enter it: no ticket, no purchase, no explanation. The locked cupboard has become an open door.']
+ ],
+ questions:[
+  {n:14,type:'select',q:'Which paragraph contains a description of libraries that readers had to pay to use?',options:['Paragraph A','Paragraph B','Paragraph C','Paragraph D','Paragraph E','Paragraph F'],answer:1,why:'Paragraph B describes subscription libraries, where \u201cmembers paid a yearly fee\u201d in return for borrowing books.'},
+  {n:15,type:'select',q:'Which paragraph contains an explanation of how one rich man paid for thousands of library buildings?',options:['Paragraph A','Paragraph B','Paragraph C','Paragraph D','Paragraph E','Paragraph F'],answer:3,why:'Paragraph D: Andrew Carnegie\u2019s money \u201chad built more than two thousand five hundred libraries\u201d, on condition that each town provided the site, books and staff.'},
+  {n:16,type:'select',q:'Which paragraph contains a mention of libraries that travel to their readers?',options:['Paragraph A','Paragraph B','Paragraph C','Paragraph D','Paragraph E','Paragraph F'],answer:4,why:'Paragraph E: \u201cmobile libraries \u2014 vans fitted with shelves \u2014 began carrying books to villages, schools and housing estates\u201d.'},
+  {n:17,type:'select',q:'Which paragraph contains a description of libraries that were open only to a powerful few?',options:['Paragraph A','Paragraph B','Paragraph C','Paragraph D','Paragraph E','Paragraph F'],answer:0,why:'Paragraph A: ancient collections \u201cbelonged to kings, temples and the small circle of scholars who served them\u201d, and Alexandria was open only to court scholars.'},
+  {n:18,type:'mcq',q:'The Public Libraries Act of 1850 allowed British towns to\u2026',options:['charge every reader a small yearly fee','build the first library at Alexandria','spend local tax money on free libraries'],answer:2,why:'Paragraph C: towns were \u201callowed to spend a small amount of local tax money on a library that anyone could use free of charge\u201d. Fees belong to the older subscription system; Alexandria is thousands of years earlier.'},
+  {n:19,type:'mcq',q:'Which change in the twentieth century most altered how readers used the library?',options:['Books were chained to the shelves','Readers could browse open shelves and choose books themselves','Children were no longer allowed inside'],answer:1,why:'Paragraph E: \u201cThe counters came down and open shelves replaced them, so that readers could, for the first time, browse and choose books with their own hands.\u201d Chaining belongs to the earlier period, and children gained rooms of their own.'},
+  {n:20,type:'tfng',q:'The great library at Alexandria was open to every citizen of the city.',options:['True','False','Not Given'],answer:1,why:'FALSE \u2014 Paragraph A: its reading rooms \u201cwere open only to the scholars attached to the royal court\u201d. Ordinary people had no access.'},
+  {n:21,type:'tfng',q:'Carnegie libraries were built only in Britain and the United States.',options:['True','False','Not Given'],answer:1,why:'FALSE \u2014 Paragraph D says his money built more than 2,500 libraries \u201cacross the English-speaking world\u201d, which is wider than two named countries. Carnegie himself had grown up in Scotland and made his fortune in America, which makes the narrower claim tempting.'},
+  {n:22,type:'tfng',q:'In the earliest public libraries, readers chose their books directly from open shelves.',options:['True','False','Not Given'],answer:1,why:'FALSE \u2014 Paragraph C: \u201cBooks were kept behind counters, and readers had to ask staff to fetch each volume.\u201d Open shelves only arrived in the twentieth century (Paragraph E).'},
+  {n:23,type:'select',q:'Summary completion \u2014 blank 23: \u201cThe 1850 Act allowed towns to pay for libraries out of local ______.\u201d',note:'Choose ONE word from the box.',options:['taxes','subscribers','chains','counters','shelves','vans'],answer:0,why:'TAXES \u2014 Paragraph C: towns could \u201cspend a small amount of local tax money\u201d on the new free libraries.'},
+  {n:24,type:'select',q:'Summary completion \u2014 blank 24: \u201cBefore 1850, most borrowing libraries depended on the fees of their ______.\u201d',note:'Choose ONE word from the box.',options:['taxes','subscribers','chains','counters','shelves','vans'],answer:1,why:'SUBSCRIBERS \u2014 Paragraph B\u2019s subscription libraries lived on the yearly fees paid by their members, i.e. their subscribers.'},
+  {n:25,type:'select',q:'Summary completion \u2014 blank 25: \u201cIn the first free libraries, books were kept behind ______ and fetched by staff.\u201d',note:'Choose ONE word from the box.',options:['taxes','subscribers','chains','counters','shelves','vans'],answer:3,why:'COUNTERS \u2014 Paragraph C: \u201cBooks were kept behind counters, and readers had to ask staff to fetch each volume.\u201d (Chains are also mentioned, but books were fastened with them, not kept behind them.)'},
+  {n:26,type:'short',q:'According to the passage, what did Carnegie believe free books would allow a poor person to do?',note:'Write NO MORE THAN THREE WORDS.',answer:'educate himself',accept:['educate himself','educate themselves','educate herself','improve himself','improve themselves','climb','learn'],why:'Paragraph D: Carnegie had \u201ceducated himself in a borrowed-book library\u201d and believed free books were \u201cthe surest ladder by which a poor person could climb\u201d \u2014 i.e. to educate himself.'}
+ ]},
+{name:'Passage 3',title:'Fishing for Plastic: The Machines Cleaning the Ocean',intro:'Question 27: multiple choice. Questions 28\u201330: True / False / Not Given. Questions 31\u201332: sentence completion. Questions 33\u201335: matching information. Questions 36\u201337, 40: multiple choice. Question 38: short answer. Question 39: sentence completion.',
+ paras:[
+  ['A','Every year, millions of tonnes of plastic enter the world\u2019s oceans from rivers, coasts and ships. Unlike wood or food waste, plastic does not rot away; sunlight and waves simply break it into ever smaller pieces, until individual fragments may be no wider than a grain of rice. Ocean currents carry this material into five great rotating systems of water called gyres, where it slowly gathers. The largest of these collections, between Hawaii and California, is often called the Great Pacific Garbage Patch. The name misleads: visitors do not find an island of rubbish, but an enormous area of water in which countless tiny pieces of plastic are suspended, like pepper in a thin soup.'],
+  ['B','The most ambitious attempt to remove this plastic is a cleanup system built around a simple idea: let the ocean do the work. A long floating tube, in its first full-size version about six hundred metres long, is shaped into a wide U and drifts with the currents. Below the tube hangs a deep screen. Wind and waves push ordinary water faster than the barrier, while the plastic, floating at or near the surface, moves at the barrier\u2019s own slower speed \u2014 so plastic gradually collects inside the U, as leaves collect in the curve of a slow river. A support vessel visits every few weeks to lift out the gathered plastic and carry it back to land for recycling. Because the system is passive, it needs no fuel of its own while it drifts.'],
+  ['C','The early history of the machine was not smooth. In its first winter at sea, the barrier moved too slowly to hold the plastic it had caught, and part of the structure was damaged in heavy storms, so the whole system had to be towed back to port and redesigned. Engineers made the barrier travel faster and added a parachute-like anchor to control its speed. The deeper problem, however, is one no redesign can wholly remove. The barrier can only collect plastic floating at the surface. Plastic that has sunk \u2014 and researchers believe most ocean plastic eventually sinks or is eaten \u2014 is beyond its reach, and the very smallest fragments, the microplastics, pass through the screen. Surface creatures that drift with the currents, such as tiny animals called neuston, can also be collected along with the plastic, and biologists continue to debate how serious that harm is.'],
+  ['D','Because of these limits, engineers have turned their attention upstream, to the rivers. Computer models of the world\u2019s rivers suggest that a relatively small number of them carry most of the plastic that reaches the sea, largely because they pass through densely populated areas with poor waste collection. A barrier across a river is a far simpler and cheaper machine than one built to survive the open ocean: the water flows in one direction, the plastic cannot escape to infinity, and the collected material can be removed daily by local crews. Interceptors of this kind now operate in rivers in Asia and Central America, and each one prevents its load of plastic from ever beginning the journey to a gyre.'],
+  ['E','What happens to plastic that is collected is itself a new problem. Ocean plastic arrives mixed, salty and degraded by years of sunlight, so it cannot simply be melted into new bottles. Some of it is recycled into durable products \u2014 sunglasses, furniture, building materials \u2014 where its history becomes a selling point; the rest must be burned or buried. The ocean cleanup organisations argue, however, that the point of the exercise is not profit. Every tonne removed is a tonne that will not break down into microplastic, and the rubbish itself is the most persuasive advertisement for their cause: photographs of a deck piled with old nets, crates and toothbrushes reach people in a way that statistics never have. Each collected object is also evidence. A drinks bottle manufactured in one decade and recovered in another, thousands of kilometres from the nearest shop that could have sold it, tells the story of the plastic age more plainly than any report.'],
+  ['F','The engineers behind these machines are the first to admit their limit. Even a fleet of barriers, working perfectly, could only gather a fraction of the plastic already in the gyres, and could do nothing at all about the far greater quantity still flowing in each year. In their own reports, cleaning the ocean is described as mopping the floor while the tap is still running: necessary, worthwhile, and completely insufficient unless the tap is also turned down. The machines buy time and remove the most harmful large debris, but the ending of the story is fixed elsewhere \u2014 in how much plastic the world chooses to make, use and throw away.']
+ ],
+ questions:[
+  {n:27,type:'mcq',q:'The Great Pacific Garbage Patch is best described as\u2026',options:['a solid island of rubbish that ships must sail around','a huge area of water holding vast numbers of tiny plastic pieces','a single enormous pile created by one sunken ship'],answer:1,why:'Paragraph A: \u201cVisitors do not find an island of rubbish, but an enormous area of water in which countless tiny pieces of plastic are suspended.\u201d'},
+  {n:28,type:'tfng',q:'Plastic in the ocean gradually rots away like natural waste materials.',options:['True','False','Not Given'],answer:1,why:'FALSE \u2014 Paragraph A: \u201cUnlike wood or food waste, plastic does not rot away; sunlight and waves simply break it into ever smaller pieces.\u201d'},
+  {n:29,type:'tfng',q:'The ocean barrier mainly travels because boats tow it through the water.',options:['True','False','Not Given'],answer:1,why:'FALSE \u2014 Paragraph B: the system \u201cdrifts with the currents\u201d and is passive, needing \u201cno fuel of its own while it drifts\u201d. A vessel only visits to remove collected plastic.'},
+  {n:30,type:'tfng',q:'The plastic collected at sea is mainly used to make fuel.',options:['True','False','Not Given'],answer:2,why:'NOT GIVEN \u2014 Paragraph E says collected plastic becomes durable products, or \u201cmust be burned or buried\u201d. Burning waste is not described as making fuel from it, and no use is described as the main one.'},
+  {n:31,type:'fill',q:'Sentence completion: The barrier collects plastic because wind and waves move the surrounding water faster than the barrier, while plastic stays near the ______.',note:'Write ONE WORD from the passage.',answer:'surface',accept:['surface'],why:'Paragraph B: plastic is described as \u201cfloating at or near the surface\u201d, moving at the barrier\u2019s slower speed and gathering inside the U.'},
+  {n:32,type:'fill',q:'Sentence completion: Plastic fragments smaller than a grain of ______ can pass through the barrier\u2019s screen.',note:'Write ONE WORD from the passage.',answer:'rice',accept:['rice'],why:'Paragraph A compares the smallest fragments to \u201ca grain of rice\u201d, and Paragraph C confirms that \u201cthe very smallest fragments, the microplastics, pass through the screen\u201d.'},
+  {n:33,type:'select',q:'Which paragraph explains why plastic gathers in particular parts of the ocean?',options:['Paragraph A','Paragraph B','Paragraph C','Paragraph D','Paragraph E','Paragraph F'],answer:0,why:'Paragraph A: ocean currents carry plastic into five rotating gyres \u201cwhere it slowly gathers\u201d, the largest between Hawaii and California.'},
+  {n:34,type:'select',q:'Which paragraph describes a simpler and cheaper place to stop plastic before it reaches the sea?',options:['Paragraph A','Paragraph B','Paragraph C','Paragraph D','Paragraph E','Paragraph F'],answer:3,why:'Paragraph D: \u201cA barrier across a river is a far simpler and cheaper machine than one built to survive the open ocean.\u201d'},
+  {n:35,type:'select',q:'Which paragraph mentions small surface creatures that the barrier may catch together with the plastic?',options:['Paragraph A','Paragraph B','Paragraph C','Paragraph D','Paragraph E','Paragraph F'],answer:2,why:'Paragraph C: \u201cSurface creatures that drift with the currents, such as tiny animals called neuston, can also be collected along with the plastic.\u201d'},
+  {n:36,type:'mcq',q:'Engineers place interceptors in certain rivers mainly because\u2026',options:['river water is cleaner than seawater','a small number of rivers carry most of the plastic reaching the sea','river barriers can generate electricity'],answer:1,why:'Paragraph D: models suggest \u201ca relatively small number of them carry most of the plastic that reaches the sea\u201d. Electricity generation is never mentioned.'},
+  {n:37,type:'mcq',q:'The writer compares ocean cleaning to mopping a floor while the tap is running in order to show that\u2026',options:['the machines work very slowly','cleaning is pointless and should stop','removing plastic is not enough while more keeps arriving'],answer:2,why:'Paragraph F: cleaning is \u201cnecessary, worthwhile, and completely insufficient unless the tap is also turned down\u201d \u2014 i.e. while more plastic keeps flowing in.'},
+  {n:38,type:'short',q:'In its first full-size version, how long was the floating barrier?',note:'Write a number and a unit, e.g. 600 metres.',answer:'600 metres',accept:['600 metres','600 m','600 meters','six hundred metres','about 600 metres','600'],why:'Paragraph B: \u201cA long floating tube, in its first full-size version about six hundred metres long, is shaped into a wide U.\u201d'},
+  {n:39,type:'fill',q:'Sentence completion: Beneath the floating tube hangs a deep ______ which plastic cannot easily pass under.',note:'Write ONE WORD from the passage.',answer:'screen',accept:['screen','a screen'],why:'Paragraph B: \u201cBelow the tube hangs a deep screen.\u201d It is this screen that the smallest fragments can, however, pass through.'},
+  {n:40,type:'mcq',q:'Which statement best expresses the writer\u2019s overall view of ocean-cleanup machines?',options:['They could solve the plastic problem on their own within a few years','They are useful, but only alongside a reduction in the plastic produced','They have failed and the money should be spent elsewhere'],answer:1,why:'Paragraph F: even a perfect fleet \u201ccould only gather a fraction\u201d of what is there, so the ending of the story lies in \u201chow much plastic the world chooses to make, use and throw away\u201d. The writer calls cleaning \u201cnecessary, worthwhile\u201d \u2014 not a failure, and not sufficient alone.'}
+ ]}
+]};
+/* ---------- FULL MOCK 2 — WRITING (original Engowra paper) ---------- */
+var FM2_WRITING={
+ t1:{title:'Task 1 \u2014 Academic Writing (report)',prompt:'The graph below shows the percentage of workers in one city who travelled to work by car, by bus and by bicycle between 2000 and 2020.',instruction:'Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words. Spend about 20 minutes on this task.',chartTitle:'How the city\u2019s workers travelled to work, 2000\u20132020 (% of workers)',line:{title:'Line graph: percentage of workers travelling to work by car, bus and bicycle, 2000\u20132020',years:[2000,2005,2010,2015,2020],series:[{name:'Car',values:[62,58,54,49,45]},{name:'Bus',values:[30,29,28,27,25]},{name:'Bicycle',values:[8,13,18,24,30]}]},
+  model:'The line graph compares the proportions of workers in one city who travelled to work by car, bus and bicycle over a twenty-year period.\n\nOverall, the car became steadily less popular between 2000 and 2020, although it remained the most common way of travelling to work. In contrast, the bicycle grew rapidly in popularity and overtook the bus by the end of the period, while bus use declined slightly throughout.\n\nIn 2000, almost two-thirds of workers (62 per cent) travelled by car, far more than used the bus (30 per cent) or cycled (just 8 per cent). Over the next twenty years, however, car use fell steadily, dropping to 54 per cent in 2010 and reaching 45 per cent by 2020.\n\nThe bicycle followed the opposite trend. Starting from the lowest figure of the three, it rose continuously, from 8 per cent in 2000 to 18 per cent in 2010, and nearly doubled again over the following decade to reach 30 per cent in 2020, overtaking the bus in the process. Bus use, meanwhile, changed very little: it drifted gently downwards from 30 per cent to 25 per cent, remaining the second most popular method until the final year.\n\nIn summary, workers in this city gradually moved away from the car over the period, with the bicycle accounting for most of that shift.',
+  modelWhy:'a clear overview beginning \u201cOverall\u201d that captures all three trends, the exact percentages quoted at the start, middle and end of the period, and comparisons throughout (far more than, the opposite trend, overtaking, meanwhile) \u2014 the habits of a Band 8 report.'},
+ t2:{title:'Task 2 \u2014 Essay',prompt:'Some people think that the best way to reduce traffic congestion in cities is to make public transport free for everyone. Other people believe that building more and wider roads is a better solution. Discuss both views and give your own opinion.',instruction:'Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words. Spend about 40 minutes on this task.',
+  model:'Traffic congestion wastes time, damages health and frustrates almost everyone who lives in a large city. Two solutions are often proposed: free public transport, or more and wider roads. This essay will discuss both views before giving my own opinion.\n\nSupporters of free public transport argue that price is the main reason people drive. If buses, trams and trains cost nothing, they say, many drivers would leave their cars at home, especially for short journeys into the centre. Free travel would also be fairer: poor residents, students and the elderly would be able to move around the city without worrying about fares. Some cities that have made transport free, such as the capital of Estonia, have indeed reported more passengers on their buses and trams.\n\nOn the other hand, many people believe that the real problem is simply that cities have outgrown their roads. Wider roads and new ring roads, they argue, allow traffic to flow instead of standing still, and they help businesses that depend on deliveries. Critics of free transport add that it is not really free: the money must come from taxes, and a bus that costs nothing to ride may still be slow, crowded and unreliable, so drivers will stay in their cars.\n\nIn my opinion, building more roads is the weaker solution, because new road space tends to fill up with new traffic within a few years \u2014 a pattern transport experts have observed in many cities. Free public transport is more promising, but only if the services are frequent and reliable; a free bus that comes once an hour helps nobody. I therefore believe the best answer is a combination: free or very cheap public transport of genuinely high quality, paid for partly by charges on driving in the centre.\n\nIn conclusion, both free public transport and wider roads have their supporters, but the evidence suggests that cities move best when public transport is cheap, frequent and attractive enough to make the car unnecessary.',
+  modelWhy:'a balanced structure that discusses each view fairly before the writer\u2019s opinion, a real-world example (free transport in Estonia\u2019s capital), advanced argument vocabulary (congestion, ring roads, outgrown, a pattern experts have observed), and a conclusion that restates a clear, reasoned position.'}
+};
+/* ---------- FULL MOCK 2 — SPEAKING (original Engowra paper) ---------- */
+var FM2_SPEAKING={
+ p1:['Let\u2019s talk about your daily routine. What time do you usually get up in the morning?','What do you like to do at weekends?','How often do you spend time with your friends?','Do you prefer to study or work alone, or with other people? Why?'],
+ cue:{title:'Describe a useful website or app that you often use',points:['what it is','how often you use it','what you use it for','and explain why you find it so useful']},
+ p3:['How has the internet changed the way people learn new skills?','What are the advantages and disadvantages of learning from videos rather than from a teacher in a classroom?','Do you think schools will still need classrooms in the future? Why?','Which do you think is more important for a successful career: qualifications or practical experience?'],
+ model:'Part 1 example: \u201cI usually get up at about half past six. I am definitely a morning person, so I like to study before breakfast, when the house is quiet and my mind is fresh.\u201d\n\nPart 2 example: \u201cA website I use almost every day is an online dictionary with example sentences, and I honestly do not know how I would prepare for my English exam without it. I use it ten or twenty times a day: whenever I meet a new word in a reading passage, I look it up, listen to its pronunciation, and read two or three examples so I can see how the word is actually used. I find it so useful because it gives me the meaning in my own language as well as in English, which means I can check my understanding in seconds instead of guessing. It has also taught me phrases, not just single words, so my writing sounds much more natural than it did a year ago.\u201d\n\nPart 3 example: \u201cThe internet has completely changed how people learn skills. In the past, if you wanted to learn photography or cooking, you needed a teacher or a book, but now there are free video lessons for almost everything, made by experts. I think this is mostly a good thing, although a teacher can correct your mistakes, which a video cannot do. On balance, though, the freedom to learn anything, at any time, is an enormous advantage.\u201d'
 };
 function fmHasSR(){ return !!('SpeechRecognition' in window||'webkitSpeechRecognition' in window); }
 function fmMicBtn(id){
@@ -4799,19 +5095,19 @@ function fmSpeakTimer(){
 }
 function fmRenderSpeaking(){
  var srNote= fmHasSR() ? 'Your browser supports voice typing \u2014 press \u201cSpeak your answer\u201d and your words will be typed for you.' : 'Voice typing is not available in this browser, so speak each answer aloud (as on exam day) and type it, or its key points, in the box.';
- var cue=FM_SPEAKING.cue;
+ var cue=fmPack().speaking.cue;
  var h='<p class="small">The complete Speaking test, in the real 3-part format (11\u201314 minutes). The examiner\u2019s questions are spoken aloud \u2014 press <b>Hear the question</b>. '+srNote+' In the real exam you speak to a human examiner; this practice follows exactly the same structure.</p>'
  +'<div class="fm-sec"><h3>Part 1 \u2014 Introduction &amp; interview</h3><p class="small" style="margin-top:4px">Short answers: 20\u201330 seconds each, one reason or detail with every answer.</p>'
- +FM_SPEAKING.p1.map(function(q,i){ return fmSQ('p1',i,q); }).join('')+'</div>'
+ +fmPack().speaking.p1.map(function(q,i){ return fmSQ('p1',i,q); }).join('')+'</div>'
  +'<div class="fm-sec"><h3>Part 2 \u2014 The cue card (long turn)</h3>'
  +'<div class="fm-cue"><p style="font-weight:700;color:var(--navy)">'+cue.title+'.</p><p class="small" style="margin-top:4px">You should say:</p><ul>'+cue.points.map(function(p){ return '<li>'+p+'</li>'; }).join('')+'</ul></div>'
  +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center"><button type="button" class="btn btn-navy btn-sm" onclick="fmSayQ(\'p2\',0)">Hear the cue card</button><button type="button" class="btn btn-outline btn-sm" onclick="fmPrepTimer()">Start 1-minute preparation</button><span id="fmPrepTime" class="mono" style="font-weight:700"></span></div>'
  +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center"><button type="button" class="btn btn-navy btn-sm" onclick="fmSpeakTimer()">Start speaking timer (1\u20132 min)</button><span id="fmSpeakTime" class="mono" style="font-weight:700"></span>'+fmMicBtn('fmSpCue')+'</div>'
  +'<textarea id="fmSpCue" data-fmsp placeholder="Note your key points during the preparation minute, then speak for 1\u20132 minutes. Type your answer here, or use the mic..." style="margin-top:10px"></textarea></div>'
  +'<div class="fm-sec"><h3>Part 3 \u2014 Two-way discussion</h3><p class="small" style="margin-top:4px">Longer answers: opinion, reason, example \u2014 40\u201360 seconds each.</p>'
- +FM_SPEAKING.p3.map(function(q,i){ return fmSQ('p3',i,q); }).join('')+'</div>'
+ +fmPack().speaking.p3.map(function(q,i){ return fmSQ('p3',i,q); }).join('')+'</div>'
  +'<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px"><button type="button" class="btn btn-primary" onclick="fmSubmitSpeaking()">Finish \u2014 get my feedback</button><button type="button" class="btn btn-outline" onclick="closePractice()">Close</button></div><div id="fmResult"></div>'
- +'<div id="fmModelS" style="display:none;margin-top:14px"><h3 style="font-size:16px;color:var(--navy)">Model answers \u2014 compare after finishing</h3><div class="transcript" style="margin-top:10px">'+FM_SPEAKING.model.replace(/\n/g,'<br/>')+'</div><p class="small" style="margin-top:8px"><b>Why these work:</b> Part 1 answers are short but complete; the cue card covers every bullet in order with specific, believable detail; Part 3 gives an opinion, a reason and an example, then balances it \u2014 the pattern examiners reward.</p></div>';
+ +'<div id="fmModelS" style="display:none;margin-top:14px"><h3 style="font-size:16px;color:var(--navy)">Model answers \u2014 compare after finishing</h3><div class="transcript" style="margin-top:10px">'+fmPack().speaking.model.replace(/\n/g,'<br/>')+'</div><p class="small" style="margin-top:8px"><b>Why these work:</b> Part 1 answers are short but complete; the cue card covers every bullet in order with specific, believable detail; Part 3 gives an opinion, a reason and an example, then balances it \u2014 the pattern examiners reward.</p></div>';
  return h;
 }
 function fmSubmitSpeaking(){
@@ -4851,40 +5147,43 @@ function fmSubmitSpeaking(){
   +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button type="button" class="btn btn-navy btn-sm" onclick="toggleModel(\'fmModelS\')">View model answers</button><a href="#history" class="btn btn-outline btn-sm">View in History</a><button type="button" class="btn btn-outline btn-sm" onclick="closePractice()">Back to modules</button></div></div>';
   res.scrollIntoView({behavior:'smooth',block:'center'});
  }
- try{ recordAttempt({skill:'speaking',testId:'fm-s1',title:'Full Mock Test 1 \u2014 Speaking',scoreStr:'Band '+est.toFixed(1)+' (practice estimate)',pct:Math.round(est/9*100),band:est}); }catch(e){}
- try{ pushHistory('Speaking \u2014 Full Mock Test 1','Band '+est.toFixed(1)+' (practice estimate)',answered+' of 9 answers \u2022 Full Mock Test 1 \u2014 Speaking'); }catch(e){}
+ try{ recordAttempt({skill:'speaking',testId:fmState.def.id,title:fmState.def.title,scoreStr:'Band '+est.toFixed(1)+' (practice estimate)',pct:Math.round(est/9*100),band:est}); }catch(e){}
+ try{ pushHistory('Speaking \u2014 '+fmMockName(),'Band '+est.toFixed(1)+' (practice estimate)',answered+' of 9 answers \u2022 '+fmState.def.title); }catch(e){}
  try{ renderFullMock(); }catch(e){}
 }
 /* ---------- dashboard + library cards & the overall result ---------- */
 function fmLatest(id){ var atts=window.EG_ATTEMPTS||[]; for(var i=0;i<atts.length;i++){ if(atts[i].testId===id) return atts[i]; } return null; }
 function renderFullMock(){
- var cards=FM_DEFS.map(function(d){
-  var a=fmLatest(d.id); var best=null;
-  (window.EG_ATTEMPTS||[]).forEach(function(x){ if(x.testId===d.id&&x.band!=null&&(best===null||x.band>best)) best=x.band; });
-  var status= a ? '<span class="test-best">'+fmEsc(a.scoreStr||'Completed')+(best!==null&&a.band!==best?' \u2022 Best Band '+best.toFixed(1):'')+'</span>' : '<span class="test-best none">Not attempted</span>';
-  return '<div class="card fm-card"><div style="display:flex;gap:12px;align-items:flex-start"><span class="mod-tile">'+icSvg(modIcon(capSkill(d.skill)))+'</span><div style="flex:1;min-width:0"><h3 style="font-size:16px;color:var(--navy)">'+d.title+'</h3><p class="small" style="margin-top:3px">'+d.fmt+'</p></div></div><p class="small" style="margin-top:10px;flex:1">'+d.detail+'</p><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px">'+status+'<button type="button" class="btn btn-primary btn-sm" onclick="startFullMock(\''+d.skill+'\')">'+(a?'Retake':'Start')+' \u2192</button></div></div>';
- }).join('');
- var html1='<div class="fm-grid">'+cards+'</div>';
- ['fmCardsDash','fmCardsLib'].forEach(function(id){ var el=document.getElementById(id); if(el) el.innerHTML=html1; });
- var done=0, nums=[], rowsHtml='';
- FM_DEFS.forEach(function(d){
-  var a=fmLatest(d.id); if(a) done++; if(a&&a.band!=null) nums.push(a.band);
-  rowsHtml+='<div class="fm-ocell"><span>'+capSkill(d.skill)+'</span><b>'+(a?(a.band!=null?('Band '+a.band.toFixed(1)):fmEsc(a.scoreStr||'Completed')):'\u2014')+'</b><small>'+(a?('Latest: '+egFmtDate(a.when)):'Not attempted yet')+'</small></div>';
- });
- var html2='';
- if(done){
-  html2='<div class="card" style="margin-top:14px;border:1.5px solid var(--navy)"><h3 style="color:var(--navy);font-size:17px">Full Mock Test 1 \u2014 your result</h3><div class="fm-overall-grid" style="margin-top:12px">'+rowsHtml+'</div>';
-  if(nums.length===FM_DEFS.length){
-   var ov=Math.round((nums.reduce(function(x,y){ return x+y; },0)/nums.length)*2)/2;
-   var tgtTxt='';
-   try{ var tp=(typeof guestProfile!=='undefined'&&guestProfile&&guestProfile.target)?parseFloat(String(guestProfile.target).replace(/[^0-9.]/g,'')):NaN; if(isFinite(tp)){ tgtTxt= ov>=tp? ' That meets your target of Band '+tp.toFixed(1)+' \u2014 excellent. Retake the weakest module to protect it.' : ' Your target is Band '+tp.toFixed(1)+', so the gap is '+(tp-ov).toFixed(1)+' band(s). The Practice Sets below are the daily training that closes it.'; } }catch(e){}
-   html2+='<p style="margin-top:12px;font-size:15px">Overall band: <b style="color:var(--navy);font-size:20px">Band '+ov.toFixed(1)+'</b> <span class="small">\u2014 the average of your four module scores, rounded to the nearest half band, exactly as the real exam reports it.</span></p><p class="small" style="margin-top:4px">'+tgtTxt+'</p>';
-  } else {
-   html2+='<p class="small" style="margin-top:12px">'+done+' of 4 modules complete \u2014 finish all four to unlock your overall band, calculated exactly as the real exam does it.</p>';
+ [1,2].forEach(function(n){
+  var defs=fmDefsFor(n); var name= n===2?'Full Mock Test 2':'Full Mock Test 1';
+  var cards=defs.map(function(d){
+   var a=fmLatest(d.id); var best=null;
+   (window.EG_ATTEMPTS||[]).forEach(function(x){ if(x.testId===d.id&&x.band!=null&&(best===null||x.band>best)) best=x.band; });
+   var status= a ? '<span class="test-best">'+fmEsc(a.scoreStr||'Completed')+(best!==null&&a.band!==best?' \u2022 Best Band '+best.toFixed(1):'')+'</span>' : '<span class="test-best none">Not attempted</span>';
+   return '<div class="card fm-card"><div style="display:flex;gap:12px;align-items:flex-start"><span class="mod-tile">'+icSvg(modIcon(capSkill(d.skill)))+'</span><div style="flex:1;min-width:0"><h3 style="font-size:16px;color:var(--navy)">'+d.title+'</h3><p class="small" style="margin-top:3px">'+d.fmt+'</p></div></div><p class="small" style="margin-top:10px;flex:1">'+d.detail+'</p><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px">'+status+'<button type="button" class="btn btn-primary btn-sm" onclick="startFullMock(\''+d.skill+'\','+n+')">'+(a?'Retake':'Start')+' \u2192</button></div></div>';
+  }).join('');
+  var html1='<div class="fm-grid">'+cards+'</div>';
+  [(n===2?'fmCardsDash2':'fmCardsDash'),(n===2?'fmCardsLib2':'fmCardsLib')].forEach(function(id){ var el=document.getElementById(id); if(el) el.innerHTML=html1; });
+  var done=0, nums=[], rowsHtml='';
+  defs.forEach(function(d){
+   var a=fmLatest(d.id); if(a) done++; if(a&&a.band!=null) nums.push(a.band);
+   rowsHtml+='<div class="fm-ocell"><span>'+capSkill(d.skill)+'</span><b>'+(a?(a.band!=null?('Band '+a.band.toFixed(1)):fmEsc(a.scoreStr||'Completed')):'\u2014')+'</b><small>'+(a?('Latest: '+egFmtDate(a.when)):'Not attempted yet')+'</small></div>';
+  });
+  var html2='';
+  if(done){
+   html2='<div class="card" style="margin-top:14px;border:1.5px solid var(--navy)"><h3 style="color:var(--navy);font-size:17px">'+name+' \u2014 your result</h3><div class="fm-overall-grid" style="margin-top:12px">'+rowsHtml+'</div>';
+   if(nums.length===defs.length){
+    var ov=Math.round((nums.reduce(function(x,y){ return x+y; },0)/nums.length)*2)/2;
+    var tgtTxt='';
+    try{ var tp=(typeof guestProfile!=='undefined'&&guestProfile&&guestProfile.target)?parseFloat(String(guestProfile.target).replace(/[^0-9.]/g,'')):NaN; if(isFinite(tp)){ tgtTxt= ov>=tp? ' That meets your target of Band '+tp.toFixed(1)+' \u2014 excellent. Retake the weakest module to protect it.' : ' Your target is Band '+tp.toFixed(1)+', so the gap is '+(tp-ov).toFixed(1)+' band(s). The Practice Sets below are the daily training that closes it.'; } }catch(e){}
+    html2+='<p style="margin-top:12px;font-size:15px">Overall band: <b style="color:var(--navy);font-size:20px">Band '+ov.toFixed(1)+'</b> <span class="small">\u2014 the average of your four module scores, rounded to the nearest half band, exactly as the real exam reports it.</span></p><p class="small" style="margin-top:4px">'+tgtTxt+'</p>';
+   } else {
+    html2+='<p class="small" style="margin-top:12px">'+done+' of 4 modules complete \u2014 finish all four to unlock your overall band, calculated exactly as the real exam does it.</p>';
+   }
+   html2+='</div>';
   }
-  html2+='</div>';
- }
- ['fmOverallDash','fmOverallLib'].forEach(function(id){ var el=document.getElementById(id); if(el) el.innerHTML=html2; });
+  [(n===2?'fmOverallDash2':'fmOverallDash'),(n===2?'fmOverallLib2':'fmOverallLib')].forEach(function(id){ var el=document.getElementById(id); if(el) el.innerHTML=html2; });
+ });
 }
 /* ---------- init & engine hooks ---------- */
 try{ renderFullMock(); }catch(e){}
